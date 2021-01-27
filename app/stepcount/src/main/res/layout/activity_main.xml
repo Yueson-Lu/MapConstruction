@@ -44,6 +44,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="RadioButton" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="0" />
     </RadioGroup>
 
     <Button

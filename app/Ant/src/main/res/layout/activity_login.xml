@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:layout_gravity="center"
+    tools:context=".Ant">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:alpha="0.5"
+        app:srcCompat="@drawable/earth"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="203dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="96dp"
+            android:text="Ant-室内地图构建"
+            android:textColor="#000000"
+            android:textSize="80px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.214" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="272dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="68dp"
+            android:width="100dp"
+            android:background="@android:color/white"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="用户名"
+            android:inputType="textAutoCorrect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.404" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="272dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="68dp"
+            android:width="100dp"
+            android:background="@android:color/white"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="密码"
+            android:inputType="textPassword"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.522" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="160dp"
+            android:width="30dp"
+            android:background="#7CB342"
+            android:text="登陆"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.664" />
+
+        <TextView
+            android:layout_width="219dp"
+            android:layout_height="49dp"
+            android:layout_marginEnd="96dp"
+            android:gravity="center"
+            android:singleLine="false"
+            android:text="技术提供：安卓实习生lys Ant室内地图构建系统1.0v"
+            android:textColor="#9F8484"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.976" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

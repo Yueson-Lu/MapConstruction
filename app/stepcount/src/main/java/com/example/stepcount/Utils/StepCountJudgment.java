@@ -35,13 +35,13 @@ public class StepCountJudgment {
     public static Integer judgment(int statu, float[] value, boolean processState) {
         switch (statu) {
             case STATU_HANDHELD:
-                Log.i("STATU_HANDHELD",String.valueOf(STATU_HANDHELD));
+//                Log.i("STATU_HANDHELD",String.valueOf(STATU_HANDHELD));
                 return handheldJudgment(value,processState);
             case STATU_FLAT:
-                Log.i("STATU_FLAT",String.valueOf(STATU_FLAT));
+//                Log.i("STATU_FLAT",String.valueOf(STATU_FLAT));
                 return flatJudgment(value,processState);
             case STATU_NORMAL:
-                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
+//                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
                 return normalJudgment(value,processState);
             default:
                 return null;
@@ -51,8 +51,9 @@ public class StepCountJudgment {
     public static Integer handheldJudgment(float[] value, boolean processState) {
         if (!processState) {
             step = 0;
+            return 0;
         }
-        double range = 25;   //设定一个精度范围
+        double range = 20;   //设定一个精度范围
         curValue = magnitude(value[0], value[1], value[2]);   //计算当前的模
         //向上加速的状态
         if (motiveState == true) {
@@ -61,6 +62,7 @@ public class StepCountJudgment {
                 upTime = TimeCalculate.getNowTime();
                 //检测到一次峰值
                 if (Math.abs(curValue - lstValue) > range) {
+                    Log.i("第一步",String.valueOf(curValue - lstValue));
                     oriValue = curValue;
                     motiveState = false;
                 }
@@ -69,12 +71,10 @@ public class StepCountJudgment {
         //向下加速的状态
         if (motiveState == false) {
             if (curValue >= range) {
+                Log.i("第二步",String.valueOf(curValue));
                 //检测到一次峰值
                 downTime = TimeCalculate.getNowTime();
                 disTime = TimeCalculate.getDisTime(upTime, downTime);
-                Log.i("uptime", String.valueOf(upTime));
-                Log.i("downTime", String.valueOf(downTime));
-                Log.i("diaTime", String.valueOf(disTime));
                 oriValue = curValue;
 //                限定一步完成的时间必须大于0.2s
                 if (processState == true && disTime > 200) {
@@ -92,6 +92,14 @@ public class StepCountJudgment {
     }
 
     public static Integer flatJudgment(float[] value, boolean processState){
+        if (processState){
+            if (value[0]==1){
+                return ++step;
+            }
+        }else {
+            step=0;
+            return step;
+        }
         return null;
     }
     public static Integer normalJudgment(float[] value, boolean processState){
