@@ -23,12 +23,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
-    private Sensor mSensorStepDetector;
     private TextView tv_step;
     private Button btn_start;
     private boolean processState = false;   //标记当前是否已经在计步
     private int statu;
-    private List<Sensor> sensorList;
 
 
     @Override
@@ -36,14 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensorList=sManager.getSensorList(Sensor.TYPE_ALL);
-        for (Sensor sensor : sensorList) {
-            Log.i("Sensor",sensor.getName());
-        }
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-//        mSensorStepDetector = sManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-//        sManager.registerListener(this,mSensorStepDetector,SensorManager.SENSOR_DELAY_FASTEST);
+        sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);
         bindViews();
     }
 
@@ -57,22 +49,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onSensorChanged(SensorEvent event) {
 //        Log.i("date", String.valueOf(System.currentTimeMillis()/10000));
-        statu = 0;
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER&&statu==0) {
+        statu = 2;
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && statu == 0) {
             float[] value = event.values;
             Integer step = StepCountJudgment.judgment(statu, value, processState);
             if (null != step) {
                 tv_step.setText(step + " ");
             }
         }
-//        if (event.sensor.getType() ==Sensor.TYPE_STEP_DETECTOR&&statu==1) {
-//            float[] value = event.values;
-//            Log.i("value", String.valueOf(value[0]));
-//            Integer step = StepCountJudgment.judgment(statu, value, processState);
-//            if (null != step) {
-//                tv_step.setText(step + " ");
-//            }
-//        }
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && statu == 1) {
+            float[] value = event.values;
+            Integer step = StepCountJudgment.judgment(statu, value, processState);
+            if (null != step) {
+                tv_step.setText(step + " ");
+            }
+        }
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && statu == 2) {
+            float[] value = event.values;
+            Integer step = StepCountJudgment.judgment(statu, value, processState);
+            if (null != step) {
+                tv_step.setText(step + " ");
+            }
+        }
     }
 
 

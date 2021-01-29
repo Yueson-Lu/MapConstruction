@@ -24,7 +24,13 @@ public class StepCountJudgment {
     }
 
     //向量求模
-    public static double magnitude(float x, float y, float z) {
+    public static double magnitude(float[] value) {
+        float x=value[0];
+        float y=value[1];
+        float z=value[2];
+//        Log.i("x",String.valueOf(x));
+//        Log.i("y",String.valueOf(y));
+//        Log.i("z",String.valueOf(z));
         double magnitude = 0;
         magnitude = Math.sqrt(x * x + y * y + z * z);
         return magnitude;
@@ -33,28 +39,33 @@ public class StepCountJudgment {
     //  statu为选择计步的方式 0-手持 1-平放 2-正常（放在裤袋中）
 //  value为传入的数据
     public static Integer judgment(int statu, float[] value, boolean processState) {
-        switch (statu) {
-            case STATU_HANDHELD:
+//        Log.i("tag","进入判断");
+        double range = 0;   //设定一个精度范围
+        if (!processState){
+            step = 0;
+            return 0;
+        }else {
+            switch (statu) {
+                case STATU_HANDHELD:
 //                Log.i("STATU_HANDHELD",String.valueOf(STATU_HANDHELD));
-                return handheldJudgment(value,processState);
-            case STATU_FLAT:
+                   range=22;
+                    return handheldJudgment(range,value,processState);
+                case STATU_FLAT:
 //                Log.i("STATU_FLAT",String.valueOf(STATU_FLAT));
-                return flatJudgment(value,processState);
-            case STATU_NORMAL:
+                    range = 15;   //设定一个精度范围
+                    return flatJudgment(range,value,processState);
+                case STATU_NORMAL:
+                    range=13;
 //                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
-                return normalJudgment(value,processState);
-            default:
-                return null;
+                    return normalJudgment(range,value,processState);
+                default:
+                    return null;
+            }
         }
     }
 
-    public static Integer handheldJudgment(float[] value, boolean processState) {
-        if (!processState) {
-            step = 0;
-            return 0;
-        }
-        double range = 20;   //设定一个精度范围
-        curValue = magnitude(value[0], value[1], value[2]);   //计算当前的模
+    public static Integer handheldJudgment(double range,float[] value, boolean processState) {
+        curValue = magnitude(value);   //计算当前的模
         //向上加速的状态
         if (motiveState == true) {
             if (curValue >= lstValue) lstValue = curValue;
@@ -62,7 +73,6 @@ public class StepCountJudgment {
                 upTime = TimeCalculate.getNowTime();
                 //检测到一次峰值
                 if (Math.abs(curValue - lstValue) > range) {
-                    Log.i("第一步",String.valueOf(curValue - lstValue));
                     oriValue = curValue;
                     motiveState = false;
                 }
@@ -71,7 +81,6 @@ public class StepCountJudgment {
         //向下加速的状态
         if (motiveState == false) {
             if (curValue >= range) {
-                Log.i("第二步",String.valueOf(curValue));
                 //检测到一次峰值
                 downTime = TimeCalculate.getNowTime();
                 disTime = TimeCalculate.getDisTime(upTime, downTime);
@@ -91,18 +100,10 @@ public class StepCountJudgment {
         return null;
     }
 
-    public static Integer flatJudgment(float[] value, boolean processState){
-        if (processState){
-            if (value[0]==1){
-                return ++step;
-            }
-        }else {
-            step=0;
-            return step;
-        }
-        return null;
+    public static Integer flatJudgment(double range,float[] value, boolean processState){
+        return handheldJudgment(range,value,processState);
     }
-    public static Integer normalJudgment(float[] value, boolean processState){
-        return null;
+    public static Integer normalJudgment(double range,float[] value, boolean processState) {
+        return handheldJudgment(range, value, processState);
     }
 }
