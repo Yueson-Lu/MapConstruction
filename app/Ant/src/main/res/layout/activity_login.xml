@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:layout_gravity="center"
-    tools:context=".Ant">
+    android:background="@drawable/bg"
+    tools:context=".Login">
 
     <ImageView
         android:id="@+id/imageView"
@@ -20,6 +20,7 @@
         tools:layout_editor_absoluteY="203dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
@@ -40,7 +41,7 @@
             app:layout_constraintVertical_bias="0.214" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nameText"
             android:layout_width="272dp"
             android:layout_height="44dp"
             android:layout_marginEnd="68dp"
@@ -57,7 +58,7 @@
             app:layout_constraintVertical_bias="0.404" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/pswText"
             android:layout_width="272dp"
             android:layout_height="44dp"
             android:layout_marginEnd="68dp"
@@ -74,10 +75,10 @@
             app:layout_constraintVertical_bias="0.522" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="160dp"
+            android:id="@+id/login"
+            android:layout_width="179dp"
+            android:layout_height="49dp"
+            android:layout_marginEnd="68dp"
             android:width="30dp"
             android:background="#7CB342"
             android:text="登陆"
@@ -85,7 +86,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.664" />
+            app:layout_constraintVertical_bias="0.646" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="252dp"
+            android:background="#8E8F8C"
+            android:text="注册"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.647" />
 
         <TextView
             android:layout_width="219dp"
