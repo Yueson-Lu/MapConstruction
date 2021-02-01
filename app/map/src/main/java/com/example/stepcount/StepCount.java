@@ -2,6 +2,7 @@ package com.example.stepcount;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
+public class StepCount extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
