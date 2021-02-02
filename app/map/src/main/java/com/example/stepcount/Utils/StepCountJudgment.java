@@ -88,7 +88,7 @@ public class StepCountJudgment {
 //                限定一步完成的时间必须大于0.2s
                 if (processState == true && disTime > 200) {
                     step++;  //步数 + 1
-                    Log.i("step+++++++++", String.valueOf(step));
+//                    Log.i("step+++++++++", String.valueOf(step));
                     if (processState == true) {
 //                        Log.d("step",String.valueOf(step));
                         motiveState = true;

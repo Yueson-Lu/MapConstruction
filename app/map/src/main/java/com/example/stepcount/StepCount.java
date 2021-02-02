@@ -51,21 +51,7 @@ public class StepCount extends AppCompatActivity implements View.OnClickListener
     public void onSensorChanged(SensorEvent event) {
 //        Log.i("date", String.valueOf(System.currentTimeMillis()/10000));
         statu = 2;
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && statu == 0) {
-            float[] value = event.values;
-            Integer step = StepCountJudgment.judgment(statu, value, processState);
-            if (null != step) {
-                tv_step.setText(step + " ");
-            }
-        }
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && statu == 1) {
-            float[] value = event.values;
-            Integer step = StepCountJudgment.judgment(statu, value, processState);
-            if (null != step) {
-                tv_step.setText(step + " ");
-            }
-        }
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && statu == 2) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             float[] value = event.values;
             Integer step = StepCountJudgment.judgment(statu, value, processState);
             if (null != step) {
