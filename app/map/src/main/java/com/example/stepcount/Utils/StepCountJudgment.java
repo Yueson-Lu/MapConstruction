@@ -80,7 +80,7 @@ public class StepCountJudgment {
         }
         //向下加速的状态
         if (motiveState == false) {
-            if (curValue >= range) {
+            if (curValue >= range&&curValue<1.2*range) {
                 //检测到一次峰值
                 downTime = TimeCalculate.getNowTime();
                 disTime = TimeCalculate.getDisTime(upTime, downTime);

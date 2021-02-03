@@ -28,48 +28,18 @@
         android:id="@+id/rotation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
-
-    <!--    <view-->
-    <!--        android:id="@+id/mapSetView"-->
-    <!--        android:layout_width="411dp"-->
-    <!--        android:layout_height="124dp">-->
-    <!--    </view>-->
-
-    <RadioGroup
-        android:layout_width="411dp"
-        android:layout_height="wrap_content">
-
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RadioButton" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="0" />
-    </RadioGroup>
-
     <Button
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:text="开始"
         android:textSize="25sp" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+
 </LinearLayout>
