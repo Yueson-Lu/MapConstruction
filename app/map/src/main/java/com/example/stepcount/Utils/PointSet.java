@@ -30,10 +30,16 @@ public class PointSet {
         double radian = 0;
         float[] XY = new float[2];
         radian = (Math.PI * angle) / 180;
+        if (currentX==0&currentY==0){
+            currentX=this.currentX;
+            currentY=this.currentY;
+        }
             nextX = (float) (currentX + Math.sin(radian) * precision);
             nextY = (float) (currentY + Math.cos(radian) * precision);
         XY[0] = nextX;
         XY[1] = nextY;
+//        Log.i("x:",nextX+"");
+//        Log.i("y:",nextY+"");
         return XY;
     }
 }

@@ -10,29 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29baffee-313a-46c6-8908-cd9034cef979" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/Utils/DirectionSet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/Utils/PointSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/Ant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/Ant.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/map/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/map/map.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/map.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/map/src/androidTest/java/com/example/stepcount/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/androidTest/java/com/example/stepcount/ExampleInstrumentedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/MapSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/MapSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/MapSetView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/MapSetView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/Utils/PointSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/Utils/PointSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/Utils/StepCountJudgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/Utils/StepCountJudgment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/map/src/main/res/layout/activity_mapset.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/main/res/layout/activity_mapset.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/map/src/test/java/com/example/stepcount/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/test/java/com/example/stepcount/ExampleUnitTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +36,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="AVD_7.0" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="00549ed3769f" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -57,8 +53,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="layoutResourceFile" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -68,8 +64,8 @@
   <component name="ProjectId" id="1nXlQ0BLKJeRJhlF0aLFNntu5WM" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="00549ed3769f" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-01-27T06:40:18.923Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="AVD_7.0" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-02-07T12:07:01.442Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="D:/androidStudioSDK" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/login/src/main/res/mipmap-xhdpi" />
@@ -539,9 +535,9 @@
       <item itemvalue="Android App.map" />
       <item itemvalue="Android Instrumented Tests.useAppContext()" />
       <item itemvalue="Android Instrumented Tests.ExampleInstrumentedT..." />
-      <item itemvalue="Android JUnit.ExampleUnitTest.addition_isCorrect" />
       <item itemvalue="Android Instrumented Tests.useAppContext() (1)" />
       <item itemvalue="Android Instrumented Tests.text()" />
+      <item itemvalue="Android JUnit.ExampleUnitTest.addition_isCorrect" />
     </list>
     <recent_temporary>
       <list>

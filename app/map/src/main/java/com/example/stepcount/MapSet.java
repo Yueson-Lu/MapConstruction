@@ -1,7 +1,5 @@
 package com.example.stepcount;
 
-import android.graphics.Canvas;
-import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -54,7 +52,7 @@ public class MapSet extends AppCompatActivity implements View.OnClickListener, S
     private float currentY = 0;
     private float nextX = 0;
     private float nextY = 0;
-    private  ArrayList points;
+    private ArrayList points;
 
     //    制图类
     private MapSetView mapSetView;
@@ -62,17 +60,18 @@ public class MapSet extends AppCompatActivity implements View.OnClickListener, S
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mapset);
-        pointSet = new PointSet(currentX, currentY, 0, 10);
-        points=new ArrayList<>();
-        points.add(currentX);
-        points.add(currentY);
-        bindViews();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+//
+        setContentView(R.layout.activity_mapset);
+//        设定开始点
+        pointSet = new PointSet(300, 300, 0, 30);
+        points = new ArrayList<>();
+        bindViews();
+//
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorMagnetic = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -104,12 +103,18 @@ public class MapSet extends AppCompatActivity implements View.OnClickListener, S
                 float[] value1 = event.values;
                 direction = DirectionSet.directionSet(value1);
                 float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
-                nextX=floats[0];
-                nextY=floats[1];
+                nextX = floats[0];
+                nextY = floats[1];
+                currentX = nextX;
+                currentY = nextY;
                 points.add(nextX);
                 points.add(nextY);
-//                mapSetView.draw(points);
-                Log.i("XY",nextX+"    "+nextY+"");
+                mapSetView.repaint(points);
+//                Log.i("t","+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//                for (int i = 0; i < points.size() - 2; i=i+2) {
+//                    Log.i("XY",points.get(i)+"    "+points.get(i+1)+"");
+//                }
+//                Log.i("XY",nextX+"    "+nextY+"");
             } else {
                 direction = 0;
                 rotation.setText(0 + "");

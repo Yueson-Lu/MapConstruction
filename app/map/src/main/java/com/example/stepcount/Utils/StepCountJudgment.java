@@ -48,14 +48,14 @@ public class StepCountJudgment {
             switch (statu) {
                 case STATU_HANDHELD:
 //                Log.i("STATU_HANDHELD",String.valueOf(STATU_HANDHELD));
-                   range=22;
+                   range=20;
                     return handheldJudgment(range,value,processState);
                 case STATU_FLAT:
 //                Log.i("STATU_FLAT",String.valueOf(STATU_FLAT));
-                    range = 15;   //设定一个精度范围
+                    range = 13;   //设定一个精度范围
                     return flatJudgment(range,value,processState);
                 case STATU_NORMAL:
-                    range=13;
+                    range=10;
 //                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
                     return normalJudgment(range,value,processState);
                 default:
@@ -80,7 +80,7 @@ public class StepCountJudgment {
         }
         //向下加速的状态
         if (motiveState == false) {
-            if (curValue >= range&&curValue<1.2*range) {
+            if (curValue >= range&&curValue<1.5*range) {
                 //检测到一次峰值
                 downTime = TimeCalculate.getNowTime();
                 disTime = TimeCalculate.getDisTime(upTime, downTime);
