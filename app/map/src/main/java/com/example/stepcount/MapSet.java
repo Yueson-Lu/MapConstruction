@@ -68,7 +68,7 @@ public class MapSet extends AppCompatActivity implements View.OnClickListener, S
 //
         setContentView(R.layout.activity_mapset);
 //        设定开始点
-        pointSet = new PointSet(300, 300, 0, 30);
+        pointSet = new PointSet(0, 0, 0, 30);
         points = new ArrayList<>();
         bindViews();
 //
@@ -109,7 +109,9 @@ public class MapSet extends AppCompatActivity implements View.OnClickListener, S
                 currentY = nextY;
                 points.add(nextX);
                 points.add(nextY);
-                mapSetView.repaint(points);
+                if(null!=points&&points.size()>=2){
+                    mapSetView.repaint(points);
+                }
 //                Log.i("t","+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //                for (int i = 0; i < points.size() - 2; i=i+2) {
 //                    Log.i("XY",points.get(i)+"    "+points.get(i+1)+"");

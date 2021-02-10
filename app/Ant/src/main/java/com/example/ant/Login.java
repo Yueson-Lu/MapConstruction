@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.ant;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,15 +38,19 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String name = nameText.getText().toString();
                 String pws = pswText.getText().toString();
-                if ("".equals(name) || "".equals(pws)) {
-                    //通过makeText方法创建消息提示框
-                    Toast.makeText(Login.this, "用户名和密码不能为空", Toast.LENGTH_LONG).show();
-                } else if (!name.equals("lys2021") || !pws.equals("lys2021")) {
-                    Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(Login.this, Main.class);
-                    startActivity(intent);
-                }
+
+                Intent intent = new Intent(Login.this, Main.class);
+                startActivity(intent);
+
+//                if ("".equals(name) || "".equals(pws)) {
+//                    //通过makeText方法创建消息提示框
+//                    Toast.makeText(Login.this, "用户名和密码不能为空", Toast.LENGTH_LONG).show();
+//                } else if (!name.equals("lys2021") || !pws.equals("lys2021")) {
+//                    Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_LONG).show();
+//                } else {
+//                    Intent intent = new Intent(Login.this, Main.class);
+//                    startActivity(intent);
+//                }
             }
         });
     }

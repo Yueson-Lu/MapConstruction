@@ -1,6 +1,6 @@
-package com.example.login.data;
+package com.example.ant.data;
 
-import com.example.login.data.model.LoggedInUser;
+import com.example.ant.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

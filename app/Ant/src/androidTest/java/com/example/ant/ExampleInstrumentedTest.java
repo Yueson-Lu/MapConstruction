@@ -1,7 +1,6 @@
-package com.example.login;
+package com.example.ant;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -9,7 +8,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.Assert.*;

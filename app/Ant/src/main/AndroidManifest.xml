@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.login">
+    package="com.example.ant">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,9 +15,9 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"></activity>
         <activity
-            android:name=".Main"
+            android:name="com.example.ant.Main"
             android:label="@string/title_activity_main" />
-        <activity android:name=".Login">
+        <activity android:name="com.example.ant.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

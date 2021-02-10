@@ -1,4 +1,4 @@
-package com.example.login.ui.notifications;
+package com.example.ant.ui.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.login.R;
+import com.example.ant.R;
 
 public class NotificationsFragment extends Fragment {
 

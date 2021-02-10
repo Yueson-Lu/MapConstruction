@@ -1,4 +1,4 @@
-package com.example.login.data;
+package com.example.ant.data;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

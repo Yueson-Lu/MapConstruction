@@ -29,22 +29,35 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="96dp"
-            android:text="Ant-室内地图构建"
+            android:layout_marginEnd="108dp"
+            android:text="ANT"
+            android:textColor="#000000"
+            android:textSize="120px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.203" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="56dp"
+            android:text="室内地图构建"
             android:textColor="#000000"
             android:textSize="80px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.214" />
+            app:layout_constraintVertical_bias="0.303" />
 
         <EditText
             android:id="@+id/nameText"
             android:layout_width="272dp"
             android:layout_height="44dp"
-            android:layout_marginEnd="68dp"
+            android:layout_marginEnd="48dp"
             android:width="100dp"
             android:background="@android:color/white"
             android:ems="10"
@@ -55,13 +68,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.404" />
+            app:layout_constraintVertical_bias="0.401" />
 
         <EditText
             android:id="@+id/pswText"
             android:layout_width="272dp"
             android:layout_height="44dp"
-            android:layout_marginEnd="68dp"
+            android:layout_marginEnd="48dp"
             android:width="100dp"
             android:background="@android:color/white"
             android:ems="10"
@@ -72,13 +85,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.522" />
+            app:layout_constraintVertical_bias="0.521" />
 
         <Button
             android:id="@+id/login"
             android:layout_width="179dp"
             android:layout_height="49dp"
-            android:layout_marginEnd="68dp"
+            android:layout_marginEnd="48dp"
             android:width="30dp"
             android:background="#7CB342"
             android:text="登陆"
@@ -92,7 +105,7 @@
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="252dp"
+            android:layout_marginEnd="232dp"
             android:background="#8E8F8C"
             android:text="注册"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -104,7 +117,7 @@
         <TextView
             android:layout_width="219dp"
             android:layout_height="49dp"
-            android:layout_marginEnd="96dp"
+            android:layout_marginEnd="72dp"
             android:gravity="center"
             android:singleLine="false"
             android:text="技术提供：安卓实习生lys Ant室内地图构建系统1.0v"
