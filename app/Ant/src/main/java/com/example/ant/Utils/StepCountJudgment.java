@@ -1,9 +1,11 @@
 package com.example.ant.Utils;
 
+import android.util.Log;
+
 public class StepCountJudgment {
     //    手持状态
     private static final int STATU_HANDHELD = 0;
-    //    平放状态
+    //    平握状态
     private static final int STATU_FLAT = 1;
     //    正常状态（放在口袋里）
     private static final int STATU_NORMAL = 2;
@@ -20,7 +22,6 @@ public class StepCountJudgment {
     public StepCountJudgment() {
 
     }
-
     //向量求模
     public static double magnitude(float[] value) {
         float x=value[0];
@@ -34,7 +35,8 @@ public class StepCountJudgment {
         return magnitude;
     }
 
-    //  statu为选择计步的方式 0-手持 1-平放 2-正常（放在裤袋中）
+
+    //  statu为选择计步的方式 0-手持 1-平握 2-正常（放在裤袋中）
 //  value为传入的数据
     public static Integer judgment(int statu, float[] value, boolean processState) {
 //        Log.i("tag","进入判断");
@@ -53,7 +55,7 @@ public class StepCountJudgment {
                     range = 15;   //设定一个精度范围
                     return flatJudgment(range,value,processState);
                 case STATU_NORMAL:
-                    range=13;
+                    range=10;
 //                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
                     return normalJudgment(range,value,processState);
                 default:
@@ -71,6 +73,7 @@ public class StepCountJudgment {
                 upTime = TimeCalculate.getNowTime();
                 //检测到一次峰值
                 if (Math.abs(curValue - lstValue) > range) {
+                    Log.i("curValue - lstValue",(curValue - lstValue)+"");
                     oriValue = curValue;
                     motiveState = false;
                 }
@@ -78,7 +81,7 @@ public class StepCountJudgment {
         }
         //向下加速的状态
         if (motiveState == false) {
-            if (curValue >= range&&curValue<1.5*range) {
+            if (curValue >= range) {
                 //检测到一次峰值
                 downTime = TimeCalculate.getNowTime();
                 disTime = TimeCalculate.getDisTime(upTime, downTime);
@@ -88,7 +91,8 @@ public class StepCountJudgment {
                     step++;  //步数 + 1
 //                    Log.i("step+++++++++", String.valueOf(step));
                     if (processState == true) {
-//                        Log.d("step",String.valueOf(step));
+                        Log.d("step",String.valueOf(step));
+//                        Log.i("tag","可计步");
                         motiveState = true;
                         return step;   //读数更新
                     }

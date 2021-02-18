@@ -5,30 +5,97 @@
     android:id="@+id/homeConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@drawable/bg"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.homeFragment">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/earth" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginBottom="40dp"
             android:text="地图构建计步器"
             android:textColor="#1B1A1A"
-            android:textSize="25sp"
-            tools:layout_editor_absoluteX="68dp"
-            tools:layout_editor_absoluteY="76dp" />
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_step"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <TextView
+            android:id="@+id/tv_step"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/earth"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="1dp" />
+            android:layout_height="150dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#F40404"
+            android:textSize="100sp"
+            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/cardview_shadow_start_color"
+            app:layout_constraintBottom_toTopOf="@+id/btn_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_step">
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="手持模式"
+                android:textColor="@android:color/white"
+                android:textSize="25dp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="平握模式"
+                android:textColor="@android:color/white"
+                android:textSize="25dp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="正常模式"
+                android:textColor="@android:color/white"
+                android:textSize="25dp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="205dp"
+            android:layout_height="68dp"
+            android:layout_marginBottom="64dp"
+            android:background="@color/colorAccent"
+            android:text="开始"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.567"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
