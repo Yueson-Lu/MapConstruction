@@ -6,6 +6,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,33 +31,30 @@ import java.util.ArrayList;
 import static android.content.Context.SENSOR_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
-public class DashboardFragment extends Fragment implements View.OnClickListener,SensorEventListener {
+public class DashboardFragment extends Fragment implements SensorEventListener {
+    //    xml组件
+    private LinearLayout linearLayout;
+    private FrameLayout frameLayout;
+    private TextView tvStep;
+    private TextView tvDirection;
+    private Button btnStart;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_dashboard,container,false);
-        return view;
-    }
 
     //    传感器
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
     private Sensor mSensorMagnetic;
-    //    xml组件
-    private TextView tv_step;
-    private TextView rotation;
-    private LinearLayout linearLayout;
-    private FrameLayout frameLayout;
-    private Button btn_start;
+
 
     //    方向设定
-    private Integer beforeStep = 0;
-    private Integer afterStep = 0;
     private float direction = 0;
+    //    步数设定
+    private Integer step = 0;
+    private Integer beforeStep = 0;
+
 
     //状态
-    //    是否开始局部
+    //    是否开始构建
     private boolean processState = false;
     //    计步姿态 0-手握 1-平握 2-放在口袋中
     private int statu;
@@ -73,45 +71,88 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
     //    制图类
     private MapSetView mapSetView;
 
+    //    计步类
+    private StepCountJudgment stepCountJudgment;
 
+    //    初始化页面
+    @Nullable
     @Override
-    public void onStart(){
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        return view;
+    }
+
+    //    页面构建
+    @Override
+    public void onStart() {
         super.onStart();
+        findView();
+        listener();
+        stepCountJudgment = new StepCountJudgment();
+    }
+
+    //注册组件
+    public void findView() {
+        linearLayout = getView().findViewById(R.id.linearLayout);
+        frameLayout = getView().findViewById(R.id.frameLayout);
+        tvStep = getView().findViewById(R.id.tv_step);
+        tvDirection = getView().findViewById(R.id.tv_direction);
+        btnStart = getView().findViewById(R.id.btn_start);
+    }
+
+    //监听器注册
+    public void listener() {
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvStep.setText("0");
+                if (processState == true) {
+                    btnStart.setText("开始");
+                    processState = false;
+                } else {
+                    btnStart.setText("停止");
+                    processState = true;
+                }
+            }
+        });
+
 //        设定开始点
         pointSet = new PointSet(0, 0, 0, 30);
         points = new ArrayList<>();
-        bindViews();
 //
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorMagnetic = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);
         sManager.registerListener(this, mSensorMagnetic, SensorManager.SENSOR_DELAY_UI);
-        mapSetView = new MapSetView( getActivity());
+        mapSetView = new MapSetView(getActivity());
         frameLayout.addView(mapSetView);
+
     }
 
+    //注销
     @Override
     public void onDestroy() {
         super.onDestroy();
         sManager.unregisterListener(this);
     }
 
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         statu = 1;
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float[] value = event.values;
-            afterStep = StepCountJudgment.judgment(statu, value, processState);
-            if (null != afterStep) {
-                tv_step.setText(afterStep + "");
-            }
+            float[] accelerometer = event.values;
+            step = stepCountJudgment.judgment(statu, accelerometer, processState);
         }
-        if (afterStep != null) {
-            if (afterStep > beforeStep && event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && processState) {
-                float[] value1 = event.values;
-                direction = DirectionSet.directionSet(value1);
+        if (null != step && null != beforeStep && step > beforeStep) {
+            tvStep.setText(String.valueOf(step));
+            Log.i(":step", step + "");
+            beforeStep = step;
+            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+                float[] magnetic = event.values;
+                Log.i(":direction", direction + "");
+                direction = DirectionSet.directionSet(magnetic);
+                tvDirection.setText(String.valueOf(direction));
                 float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
                 nextX = floats[0];
                 nextY = floats[1];
@@ -119,7 +160,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
                 currentY = nextY;
                 points.add(nextX);
                 points.add(nextY);
-                if(null!=points&&points.size()>=2){
+                if (null != points && points.size() >= 2) {
                     mapSetView.repaint(points);
                 }
 //                Log.i("t","+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -128,37 +169,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener,
 //                }
 //                Log.i("XY",nextX+"    "+nextY+"");
             } else {
-                direction = 0;
-                rotation.setText(0 + "");
-                beforeStep = 0;
+                if (beforeStep!=1){
+                    direction = 0;
+                    beforeStep = 0;
+                    tvDirection.setText(String.valueOf(direction));
+                    tvStep.setText(String.valueOf(step));
+                }
             }
-
         }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        tv_step.setText("0");
-        if (processState == true) {
-            btn_start.setText("开始");
-            processState = false;
-        } else {
-            btn_start.setText("停止");
-            processState = true;
-        }
-    }
-
-    private void bindViews() {
-        tv_step = getActivity().findViewById(R.id.tv_step);
-        btn_start = getActivity().findViewById(R.id.btn_start);
-        rotation = getActivity().findViewById(R.id.rotation);
-        linearLayout = getActivity().findViewById(R.id.linearLayout);
-        btn_start.setOnClickListener(this);
-        frameLayout = getActivity().findViewById(R.id.frameLayout);
     }
 }

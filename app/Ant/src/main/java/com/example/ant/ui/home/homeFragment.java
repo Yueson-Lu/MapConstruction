@@ -28,12 +28,13 @@ public class homeFragment extends Fragment implements SensorEventListener {
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
     private TextView tv_step;
-    private Integer step=0;
+    private Integer step = 0;
     private Button btn_start;
     private boolean processState = false;   //标记当前是否已经在计步
     private int statu = 1; //默认为平卧状态
     private RadioGroup radioGroup;
     private StepCountJudgment stepCountJudgment;
+
     @Nullable
     @Override
 
@@ -45,11 +46,43 @@ public class homeFragment extends Fragment implements SensorEventListener {
     @Override
     public void onStart() {
         super.onStart();
+        findView();
+        listener();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //        Log.i("date", String.valueOf(System.currentTimeMillis()/10000));
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            float[] value = event.values;
+            step = stepCountJudgment.judgment(statu, value, processState);
+            if (null != step && processState) {
+                Log.i("statu", statu + "");
+                tv_step.setText(String.valueOf(step));
+            }
+        }
+    }
+
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    //注册组件
+    private void findView() {
+        tv_step = getView().findViewById(R.id.tv_step);
+        btn_start = getView().findViewById(R.id.btn_start);
+        radioGroup = getView().findViewById(R.id.radioGroup);
+        radioGroup.check(radioGroup.getChildAt(1).getId());
+    }
+
+    //    监听器
+    public void listener() {
         stepCountJudgment = new StepCountJudgment();
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);
-        bindViews();
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,29 +123,8 @@ public class homeFragment extends Fragment implements SensorEventListener {
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        //        Log.i("date", String.valueOf(System.currentTimeMillis()/10000));
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float[] value = event.values;
-            step = stepCountJudgment.judgment(statu, value, processState);
-            if (null != step && processState) {
-                Log.i("statu", statu + "");
-                tv_step.setText(String.valueOf(step));
-            }
-        }
-    }
-
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
-
-    private void bindViews() {
-        tv_step = getView().findViewById(R.id.tv_step);
-        btn_start = getView().findViewById(R.id.btn_start);
-        radioGroup = getView().findViewById(R.id.radioGroup);
-        radioGroup.check(radioGroup.getChildAt(1).getId());
+    public void onDestroy() {
+        super.onDestroy();
+        sManager.unregisterListener(this);
     }
 }

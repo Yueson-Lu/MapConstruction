@@ -73,7 +73,7 @@ public class StepCountJudgment {
                 upTime = TimeCalculate.getNowTime();
                 //检测到一次峰值
                 if (Math.abs(curValue - lstValue) > range) {
-                    Log.i("curValue - lstValue",(curValue - lstValue)+"");
+//                    Log.i("curValue - lstValue",(curValue - lstValue)+"");
                     oriValue = curValue;
                     motiveState = false;
                 }
@@ -90,12 +90,12 @@ public class StepCountJudgment {
                 if (processState == true && disTime > 200) {
                     step++;  //步数 + 1
 //                    Log.i("step+++++++++", String.valueOf(step));
-                    if (processState == true) {
-                        Log.d("step",String.valueOf(step));
+//                    if (processState == true) {
+//                        Log.d("step",String.valueOf(step));
 //                        Log.i("tag","可计步");
                         motiveState = true;
                         return step;   //读数更新
-                    }
+//                    }
                 }
             }
         }
