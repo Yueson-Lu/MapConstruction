@@ -48,6 +48,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
         super.onStart();
         findView();
         listener();
+        stepCountJudgment = new StepCountJudgment();
     }
 
     @Override
@@ -57,7 +58,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
             float[] value = event.values;
             step = stepCountJudgment.judgment(statu, value, processState);
             if (null != step && processState) {
-                Log.i("statu", statu + "");
+//                Log.i("statu", statu + "");
                 tv_step.setText(String.valueOf(step));
             }
         }
@@ -79,7 +80,6 @@ public class homeFragment extends Fragment implements SensorEventListener {
 
     //    监听器
     public void listener() {
-        stepCountJudgment = new StepCountJudgment();
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);

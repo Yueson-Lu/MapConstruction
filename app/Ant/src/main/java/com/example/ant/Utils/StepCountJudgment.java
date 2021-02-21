@@ -55,7 +55,7 @@ public class StepCountJudgment {
                     range = 15;   //设定一个精度范围
                     return flatJudgment(range,value,processState);
                 case STATU_NORMAL:
-                    range=10;
+                    range=12;
 //                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
                     return normalJudgment(range,value,processState);
                 default:
@@ -91,7 +91,7 @@ public class StepCountJudgment {
                     step++;  //步数 + 1
 //                    Log.i("step+++++++++", String.valueOf(step));
 //                    if (processState == true) {
-//                        Log.d("step",String.valueOf(step));
+                        Log.d("step",String.valueOf(step));
 //                        Log.i("tag","可计步");
                         motiveState = true;
                         return step;   //读数更新

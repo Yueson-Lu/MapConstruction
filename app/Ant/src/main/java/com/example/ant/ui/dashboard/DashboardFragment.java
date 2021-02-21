@@ -18,8 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ant.R;
 import com.example.ant.Utils.DirectionSet;
@@ -27,9 +25,6 @@ import com.example.ant.Utils.PointSet;
 import com.example.ant.Utils.StepCountJudgment;
 
 import java.util.ArrayList;
-
-import static android.content.Context.SENSOR_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class DashboardFragment extends Fragment implements SensorEventListener {
     //    xml组件
@@ -48,9 +43,9 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
     //    方向设定
     private float direction = 0;
+    private ArrayList directions;
     //    步数设定
     private Integer step = 0;
-    private Integer beforeStep = 0;
 
 
     //状态
@@ -61,7 +56,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
     //    位置设定
     private PointSet pointSet;
-    private float currentAngle = 0;
+    //    private float currentAngle = 0;
     private float currentX = 0;
     private float currentY = 0;
     private float nextX = 0;
@@ -106,19 +101,30 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View v) {
                 tvStep.setText("0");
+                tvDirection.setText("0");
                 if (processState == true) {
-                    btnStart.setText("开始");
+                    btnStart.setText("开始构建");
                     processState = false;
+                    points.clear();
+                    directions.clear();
+                    direction = 0;
+                    step =0;
+                    currentX = 0;
+                    currentY = 0;
+                    mapSetView.repaint(points, direction);
+
                 } else {
                     btnStart.setText("停止");
                     processState = true;
+                    mapSetView.surfaceCreated(mapSetView.getHolder());
                 }
             }
         });
 
 //        设定开始点
         pointSet = new PointSet(0, 0, 0, 30);
-        points = new ArrayList<>();
+        points = new ArrayList<Float>();
+        directions = new ArrayList<Float>();
 //
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -141,27 +147,30 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         statu = 1;
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float[] accelerometer = event.values;
-            step = stepCountJudgment.judgment(statu, accelerometer, processState);
+            float[] value = event.values;
+            step = stepCountJudgment.judgment(statu, value, processState);
+            if (null != step && processState) {
+//                Log.i(step +"", step +"");
+                tvStep.setText("本次行走距离"+ step *0.3+"米");
+
+            }
         }
-        if (null != step && null != beforeStep && step > beforeStep) {
-            tvStep.setText(String.valueOf(step));
-            Log.i(":step", step + "");
-            beforeStep = step;
-            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-                float[] magnetic = event.values;
-                Log.i(":direction", direction + "");
-                direction = DirectionSet.directionSet(magnetic);
-                tvDirection.setText(String.valueOf(direction));
+        if (step != null) {
+            if ( event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && processState) {
+                float[] value1 = event.values;
+                direction = DirectionSet.directionSet(value1);
+                directions.add(direction);
+                tvDirection.setText(String.format("%.2f", direction) + "°");
                 float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
-                nextX = floats[0];
-                nextY = floats[1];
+//                格式化 位置参数保留小数点后一位
+                nextX = (float) (Math.round(floats[0] * 10)) / 10;
+                nextY = (float) (Math.round(floats[1] * 10)) / 10;
                 currentX = nextX;
                 currentY = nextY;
                 points.add(nextX);
                 points.add(nextY);
                 if (null != points && points.size() >= 2) {
-                    mapSetView.repaint(points);
+                    mapSetView.repaint(points, direction);
                 }
 //                Log.i("t","+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //                for (int i = 0; i < points.size() - 2; i=i+2) {
@@ -169,12 +178,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 //                }
 //                Log.i("XY",nextX+"    "+nextY+"");
             } else {
-                if (beforeStep!=1){
-                    direction = 0;
-                    beforeStep = 0;
-                    tvDirection.setText(String.valueOf(direction));
-                    tvStep.setText(String.valueOf(step));
-                }
+//                direction = 0;
+//                tvDirection.setText(0 + "");
             }
         }
     }
