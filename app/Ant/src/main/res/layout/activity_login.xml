@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/bg"
+    android:background="@mipmap/bg"
     tools:context=".Login">
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:alpha="0.5"
-        app:srcCompat="@drawable/earth"
+        app:srcCompat="@mipmap/earth"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="203dp" />
 

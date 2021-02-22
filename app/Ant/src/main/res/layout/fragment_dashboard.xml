@@ -6,43 +6,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
+    android:background="@mipmap/dashbg"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="443dp" />
+        android:layout_height="434dp"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_google_signin_btn_text_dark_disabled">
+
+        <ImageView
+            android:id="@+id/compass"
+            android:layout_width="86dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:src="@mipmap/compass" />
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/tv_step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="0"
+
+        android:text="本次行走距离0米"
         android:textColor="#DE5347"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"/>
     <TextView
         android:id="@+id/tv_direction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="0"
+
+        android:text="方位：0.00°"
         android:textColor="#DE5347"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"/>
 
-    <TextView
-        android:id="@+id/rotation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="64dp"
-        android:text="开始"
-        android:textSize="25sp" />
+        android:text="开始构建"
+        android:textSize="25sp"
+        android:background="@color/colorAccent"/>
 
 </LinearLayout>

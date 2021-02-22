@@ -8,11 +8,14 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +36,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private TextView tvStep;
     private TextView tvDirection;
     private Button btnStart;
+    private ImageView compass;
 
 
     //    传感器
@@ -93,35 +97,13 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         tvStep = getView().findViewById(R.id.tv_step);
         tvDirection = getView().findViewById(R.id.tv_direction);
         btnStart = getView().findViewById(R.id.btn_start);
+        compass = getView().findViewById(R.id.compass);
     }
 
     //监听器注册
     public void listener() {
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tvStep.setText("0");
-                tvDirection.setText("0");
-                if (processState == true) {
-                    btnStart.setText("开始构建");
-                    processState = false;
-                    points.clear();
-                    directions.clear();
-                    direction = 0;
-                    step =0;
-                    currentX = 0;
-                    currentY = 0;
-                    mapSetView.repaint(points, direction);
 
-                } else {
-                    btnStart.setText("停止");
-                    processState = true;
-                    mapSetView.surfaceCreated(mapSetView.getHolder());
-                }
-            }
-        });
-
-//        设定开始点
+        //        设定开始点
         pointSet = new PointSet(0, 0, 0, 30);
         points = new ArrayList<Float>();
         directions = new ArrayList<Float>();
@@ -133,6 +115,35 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         sManager.registerListener(this, mSensorMagnetic, SensorManager.SENSOR_DELAY_UI);
         mapSetView = new MapSetView(getActivity());
         frameLayout.addView(mapSetView);
+//点击监听
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvStep.setText("本次行走距离0米");
+                tvDirection.setText("当前方位");
+                if (processState == true) {
+                    btnStart.setText("开始构建");
+                    processState = false;
+                    points.clear();
+                    directions.clear();
+                    direction = 0;
+                    step = 0;
+                    currentX = 0;
+                    currentY = 0;
+                    mapSetView.repaint(points, direction);
+
+                } else {
+//mapSetView缩放
+//                    mapSetView.getHolder().setFixedSize(mapSetView.getWidth()/5, mapSetView.getHeight()/5);
+                    btnStart.setText("停止");
+                    processState = true;
+//                    mapSetView.surfaceCreated(mapSetView.getHolder());
+                }
+            }
+        });
+
+//        手势监听
+
 
     }
 
@@ -151,16 +162,15 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             step = stepCountJudgment.judgment(statu, value, processState);
             if (null != step && processState) {
 //                Log.i(step +"", step +"");
-                tvStep.setText("本次行走距离"+ step *0.3+"米");
+                tvStep.setText("本次行走距离" + step * 0.3 + "米");
 
             }
         }
         if (step != null) {
-            if ( event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && processState) {
+            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && processState) {
                 float[] value1 = event.values;
                 direction = DirectionSet.directionSet(value1);
                 directions.add(direction);
-                tvDirection.setText(String.format("%.2f", direction) + "°");
                 float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
 //                格式化 位置参数保留小数点后一位
                 nextX = (float) (Math.round(floats[0] * 10)) / 10;
@@ -177,10 +187,21 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 //                    Log.i("XY",points.get(i)+"    "+points.get(i+1)+"");
 //                }
 //                Log.i("XY",nextX+"    "+nextY+"");
+
+//               frameLayout.layout(frameLayout.getLeft()/2,frameLayout.getTop()/2,frameLayout.getRight()/2,frameLayout.getBottom()/2);
             } else {
 //                direction = 0;
 //                tvDirection.setText(0 + "");
             }
+        }
+        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            float[] value1 = event.values;
+            float direction = DirectionSet.directionSet(value1);
+            direction = (float) (Math.round(direction * 100)) / 100;
+            compass.setPivotX(compass.getWidth() / 2);
+            compass.setPivotY(compass.getHeight() / 2);//支点在图片中心
+            compass.setRotation(direction);
+            tvDirection.setText("方位：" + String.format("%.2f", direction) + "°");
         }
     }
 
