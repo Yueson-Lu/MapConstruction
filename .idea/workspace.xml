@@ -10,26 +10,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29baffee-313a-46c6-8908-cd9034cef979" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/compass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/dashbg.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/drawable-v24/bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/drawable-v24/earth.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/earth.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_login.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/StepCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/map/src/main/java/com/example/stepcount/StepCount.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +35,7 @@
     <option name="autoscrollToSource" value="true" />
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="00549ed3769f" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="AVD_7.0" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -88,11 +82,8 @@
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-xhdpi" />
-      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\drawable-v24" />
-      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\drawable" />
-      <recent name="D:\Android Studio\MapConstruction\app\login\src\main\res\drawable-v24" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\java\com\example\ant\Utils" />
       <recent name="D:\Android Studio\MapConstruction\app\login\src\main\res\mipmap-xhdpi" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
@@ -105,8 +96,11 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.ant.ui.dashboard" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\java\com\example\ant\Utils" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-xhdpi" />
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\drawable-v24" />
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\drawable" />
+      <recent name="D:\Android Studio\MapConstruction\app\login\src\main\res\drawable-v24" />
       <recent name="D:\Android Studio\MapConstruction\app\login\src\main\res\mipmap-xhdpi" />
     </key>
   </component>
@@ -611,16 +605,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Default Changelist" />
     <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java</url>
-          <line>90</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

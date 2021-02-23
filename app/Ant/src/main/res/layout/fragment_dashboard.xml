@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="434dp"
         android:background="@color/common_google_signin_btn_text_dark_disabled"/>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

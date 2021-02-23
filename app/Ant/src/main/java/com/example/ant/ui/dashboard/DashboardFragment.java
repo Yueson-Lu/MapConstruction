@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,13 +16,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ant.Main;
 import com.example.ant.R;
 import com.example.ant.Utils.DirectionSet;
 import com.example.ant.Utils.PointSet;
@@ -29,7 +30,7 @@ import com.example.ant.Utils.StepCountJudgment;
 
 import java.util.ArrayList;
 
-public class DashboardFragment extends Fragment implements SensorEventListener {
+public class DashboardFragment extends Fragment implements SensorEventListener, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
     //    xml组件
     private LinearLayout linearLayout;
     private FrameLayout frameLayout;
@@ -39,12 +40,16 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private ImageView compass;
 
 
+    //    缩放标志
+    private float zoom = 1;
+
     //    传感器
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
     private Sensor mSensorMagnetic;
 
-
+    // 手势检测
+    private GestureDetector gestureDetector;
     //    方向设定
     private float direction = 0;
     private ArrayList directions;
@@ -102,12 +107,13 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
     //监听器注册
     public void listener() {
-
         //        设定开始点
         pointSet = new PointSet(0, 0, 0, 30);
         points = new ArrayList<Float>();
         directions = new ArrayList<Float>();
-//
+//        手势
+        gestureDetector = new GestureDetector(frameLayout.getContext(), this);
+//        传感器
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorMagnetic = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -130,21 +136,20 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     step = 0;
                     currentX = 0;
                     currentY = 0;
+                    zoom = 1;
+                    RLtag = 0;
+                    UDtag = 0;
+                    tag = 0;
                     mapSetView.repaint(points, direction);
 
                 } else {
-//mapSetView缩放
-//                    mapSetView.getHolder().setFixedSize(mapSetView.getWidth()/5, mapSetView.getHeight()/5);
                     btnStart.setText("停止");
                     processState = true;
-//                    mapSetView.surfaceCreated(mapSetView.getHolder());
                 }
             }
         });
-
-//        手势监听
-
-
+//        手势
+        ((Main) this.getActivity()).registerMyTouchListener(mTouchListener);
     }
 
     //注销
@@ -152,8 +157,12 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     public void onDestroy() {
         super.onDestroy();
         sManager.unregisterListener(this);
+        ((Main) this.getActivity()).unRegisterMyTouchListener(mTouchListener);
+        Log.i("distory", "Dash");
     }
 
+
+    //    传感器监听器
     @Override
     public void onSensorChanged(SensorEvent event) {
         statu = 1;
@@ -162,7 +171,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             step = stepCountJudgment.judgment(statu, value, processState);
             if (null != step && processState) {
 //                Log.i(step +"", step +"");
-                tvStep.setText("本次行走距离" + step * 0.3 + "米");
+                tvStep.setText("本次行走距离" + String.format("%.2f",step*0.32) + "米");
+//                tvDirection.setText("方位：" + String.format("%.2f", direction) + "°");
 
             }
         }
@@ -187,11 +197,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 //                    Log.i("XY",points.get(i)+"    "+points.get(i+1)+"");
 //                }
 //                Log.i("XY",nextX+"    "+nextY+"");
-
+//                mapSetView.getHolder().setFixedSize(mapSetView.getWidth()*2, mapSetView.getHeight()*2);
 //               frameLayout.layout(frameLayout.getLeft()/2,frameLayout.getTop()/2,frameLayout.getRight()/2,frameLayout.getBottom()/2);
-            } else {
-//                direction = 0;
-//                tvDirection.setText(0 + "");
             }
         }
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
@@ -208,5 +215,114 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+
+    private Main.MyTouchListener mTouchListener = new Main.MyTouchListener() {
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            // TODO Auto-generated method stub
+//            Log.i("e", event.getPointerCount() + "");
+//            this.onTouchEvent(event);
+            return gestureDetector.onTouchEvent(event);
+        }
+    };
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        Log.i("tag", "放大");
+        if (zoom > 0.5) {
+            zoom = zoom - 0.1f;
+            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
+            mapSetView.repaint(points, direction);
+            mapSetView.invalidate();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+//        Log.i("手势检测", "true");
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        zoom = zoom + 0.5f;
+        if (zoom <= 3f) {
+            Log.i("tag", "缩小");
+            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
+            mapSetView.repaint(points, direction);
+            mapSetView.invalidate();
+        }
+    }
+
+    int RLtag = 0;
+    int UDtag = 0;
+    int tag = 0;
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+//                Log.i("e1",e1.getX()+"            "+e1.getY());
+//                Log.i("e2",e2.getX()+"            "+e2.getY());
+//                Log.i("v",velocityX+"            "+velocityY);
+        tag = (int) (Math.abs(velocityX) + Math.abs(velocityY) / 1000);
+        Log.i("tag", Math.abs(velocityX) + Math.abs(velocityY) / 1000 + "");
+        if (tag <= 0) {
+            tag = 1;
+        } else if (tag > 15) {
+            tag = 10;
+        }
+        if (velocityX > 1500 && Math.abs(velocityY) < 1500) {
+//            右移
+            RLtag++;
+            mapSetView.setTranslationX(10 * RLtag * tag);
+            Log.i("tag", "右移");
+        } else if (velocityX < -1500 && Math.abs(velocityY) < 1500) {
+            //            左移
+            RLtag--;
+            mapSetView.setTranslationX(10 * RLtag * tag);
+            Log.i("tag", "左移");
+        } else if (velocityY < -1500 && Math.abs(velocityX) < 4000) {
+//            上移
+            UDtag--;
+            mapSetView.setTranslationY(10 * UDtag * tag);
+            Log.i("tag", "上移");
+        } else if (velocityY > 1500 && Math.abs(velocityX) < 1500) {
+            //            下移
+            UDtag++;
+            mapSetView.setTranslationY(10 * UDtag * tag);
+            Log.i("tag", "下移");
+        }
+        mapSetView.repaint(points, direction);
+        mapSetView.invalidate();
+        return true;
     }
 }

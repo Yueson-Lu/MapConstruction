@@ -1,24 +1,17 @@
 package com.example.ant.ui.dashboard;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.CornerPathEffect;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PathEffect;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
-
-import com.example.ant.Utils.PointSet;
 
 import java.util.ArrayList;
 
@@ -34,8 +27,9 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
     private float pointX;
     private float pointY;
 
-    //    绘制缩放标志
-    private float tag = 1;
+    //    绘制自适应缩放标志
+    private float mapZoom = 1;
+
 
     public MapSetView(Context context) {
         //....
@@ -45,16 +39,18 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
         paint = new Paint();
         path = new Path();
 //        线条效果
-//        PathEffect pathEffect =  new CornerPathEffect(100);
+//        PathEffect pathEffect = new DashPathEffect(new float[]{20f, 15f, 10f, 5f}, 0);
 //        paint.setPathEffect(pathEffect);
         paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStrokeWidth(5f);
+        paint.setStrokeWidth(10f);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.RED);
 //画布初始化
         setZOrderOnTop(true);//使surfaceview放到最顶层
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//使窗口支持透明度
+
+        mapZoom=1;
     }
 
     protected void paint(Canvas canvas, ArrayList<Float> arrayList, float direction) {
@@ -73,16 +69,17 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
 //        Log.i("size", arrayList.size() + "");
             canvas.drawColor(getSolidColor());
             for (int i = 0; i <= arrayList.size() - 2; i = i + 2) {
-                pointX = startX + arrayList.get(i) * tag;
-                pointY = startY - arrayList.get(i + 1) * tag;
+                pointX = startX + arrayList.get(i) * mapZoom;
+                pointY = startY - arrayList.get(i + 1) * mapZoom;
                 path.lineTo(pointX, pointY);
 //            path.moveTo((Float) arrayList.get(i),(Float) arrayList.get(i+1));
 //            Log.i("XY", arrayList.get(i) + "    " + arrayList.get(i + 1) + "");
-                if (pointX > 0.9*canvasWidth || pointY > 0.9*canvasHeight || pointX < 0.1*canvasWidth || pointY < 0.1*canvasHeight) {
-                    tag = tag * 0.8f;
+                if (pointX > 0.9 * canvasWidth || pointY > 0.9 * canvasHeight || pointX < 0.1 * canvasWidth || pointY < 0.1 * canvasHeight) {
+                    mapZoom = mapZoom * 0.6f;
                 }
 //                平移
-                canvas.translate(0,30);
+//                canvas.translate(30,0);
+//                Log.i("canvas", canvasWidth+"   "+canvasHeight+"");
             }
 //            canvas.rotate(-direction,startX,startY);
             canvas.drawPath(path, paint);
@@ -118,4 +115,5 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
 
     }
+
 }

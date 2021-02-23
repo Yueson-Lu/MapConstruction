@@ -88,11 +88,10 @@ public class StepCountJudgment {
                 oriValue = curValue;
 //                限定一步完成的时间必须大于0.2s
                 if (processState == true && disTime > 200) {
-                    step++;  //步数 + 1
+                    step=step+1;  //步数 + 1
 //                    Log.i("step+++++++++", String.valueOf(step));
 //                    if (processState == true) {
                         Log.d("step",String.valueOf(step));
-//                        Log.i("tag","可计步");
                         motiveState = true;
                         return step;   //读数更新
 //                    }
