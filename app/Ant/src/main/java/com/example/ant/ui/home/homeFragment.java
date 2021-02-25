@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ant.R;
 import com.example.ant.Utils.StepCountJudgment;
+import com.example.ant.Utils.TimeCalculate;
 
 public class homeFragment extends Fragment implements SensorEventListener {
 
@@ -33,6 +35,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
     private boolean processState = false;   //标记当前是否已经在计步
     private int statu = 1; //默认为平卧状态
     private RadioGroup radioGroup;
+    private ImageView earth;
     private StepCountJudgment stepCountJudgment;
 
     @Nullable
@@ -61,6 +64,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
 //                Log.i("statu", statu + "");
                 tv_step.setText(String.valueOf(step));
             }
+            earthRotate();
         }
     }
 
@@ -76,6 +80,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
         btn_start = getView().findViewById(R.id.btn_start);
         radioGroup = getView().findViewById(R.id.radioGroup);
         radioGroup.check(radioGroup.getChildAt(1).getId());
+        earth = getView(). findViewById(R.id.earth);
     }
 
     //    监听器
@@ -122,6 +127,14 @@ public class homeFragment extends Fragment implements SensorEventListener {
         });
     }
 
+    int ratate=0;
+    private void earthRotate(){
+            ratate=ratate+2;
+            earth.setRotation(ratate);
+            if (ratate==360){
+                ratate=0;
+            }
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

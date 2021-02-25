@@ -10,11 +10,11 @@
     tools:context=".Login">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/earth"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:alpha="0.5"
+        android:alpha="0.6"
         app:srcCompat="@mipmap/earth"
         tools:layout_editor_absoluteX="28dp"
         tools:layout_editor_absoluteY="203dp" />
@@ -131,6 +131,4 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>

@@ -1,4 +1,3 @@
 rootProject.name='MapConstruction'
 include ':app'
-include ':app:map'
 include ':app:Ant'

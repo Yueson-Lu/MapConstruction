@@ -44,8 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-//    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 //    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 //    implementation project(path: ':app:map')

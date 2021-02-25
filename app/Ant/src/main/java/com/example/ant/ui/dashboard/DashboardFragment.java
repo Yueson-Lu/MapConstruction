@@ -1,6 +1,7 @@
 package com.example.ant.ui.dashboard;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -22,9 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ant.Login;
 import com.example.ant.Main;
 import com.example.ant.R;
 import com.example.ant.Utils.DirectionSet;
+import com.example.ant.Utils.DistanceCaculate;
 import com.example.ant.Utils.PointSet;
 import com.example.ant.Utils.StepCountJudgment;
 
@@ -171,7 +174,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
             step = stepCountJudgment.judgment(statu, value, processState);
             if (null != step && processState) {
 //                Log.i(step +"", step +"");
-                tvStep.setText("本次行走距离" + String.format("%.2f",step*0.32) + "米");
+                tvStep.setText("本次行走距离" + String.format("%.2f",(DistanceCaculate.diatance(points.size()/2)))+"米");
 //                tvDirection.setText("方位：" + String.format("%.2f", direction) + "°");
 
             }
@@ -235,13 +238,19 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
 
     @Override
     public boolean onDoubleTap(MotionEvent e) {
+//        Canvas canvas=null;
         Log.i("tag", "放大");
-        if (zoom > 0.5) {
-            zoom = zoom - 0.1f;
-            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
-            mapSetView.repaint(points, direction);
-            mapSetView.invalidate();
+        if (zoom<5) {
+            zoom = zoom+1;
+            mapSetView.setPaint(zoom*10f);
+//           canvas=mapSetView.getHolder().lockCanvas();
+//           canvas.scale(canvas.getWidth()*zoom,canvas.getHeight()*zoom);
+//            Log.i("canvas.getWidth()*zoom",canvas.getWidth()*zoom+"");
+//           mapSetView.getHolder().unlockCanvasAndPost(canvas);
+//            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
         }
+        mapSetView.repaint(points, direction);
+        mapSetView.invalidate();
         return true;
     }
 
@@ -275,13 +284,18 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
 
     @Override
     public void onLongPress(MotionEvent e) {
-        zoom = zoom + 0.5f;
-        if (zoom <= 3f) {
+//        Canvas canvas=null;
+        if (zoom>0) {
+            zoom = zoom-1;
             Log.i("tag", "缩小");
-            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
-            mapSetView.repaint(points, direction);
-            mapSetView.invalidate();
+//            canvas=mapSetView.getHolder().lockCanvas();
+//            canvas.scale(canvas.getWidth()*zoom,canvas.getHeight()*zoom);
+//            mapSetView.getHolder().unlockCanvasAndPost(canvas);
+            mapSetView.setPaint(zoom*10f);
+//            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
         }
+        mapSetView.repaint(points, direction);
+        mapSetView.invalidate();
     }
 
     int RLtag = 0;
