@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.2";
     defaultConfig {
         applicationId "com.example.login"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -44,8 +44,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-//    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
-//    implementation project(path: ':app:map')
+//    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+
+//     https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.47'
+//    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+//    implementation group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile 'com.github.chrisbanes:PhotoView:2.1.3'
 
 }

@@ -1,5 +1,6 @@
 package com.example.ant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,15 +10,21 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ant.mysql.MysqlHelp;
+import com.example.ant.Utils.Tips;
+import com.example.ant.Utils.activityUtils.ActivityUtils;
+import com.example.ant.dao.impl.UserDaoImpl;
+import com.example.ant.dto.User;
 
 public class Login extends AppCompatActivity implements SensorEventListener {
     private ImageView earth;
@@ -29,11 +36,17 @@ public class Login extends AppCompatActivity implements SensorEventListener {
     private FrameLayout frameLayout;
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
-    private MysqlHelp mysqlHelp;
+    private UserDaoImpl userDao;
+    private Handler mainHandler;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+//        Log.i("this",Login.this.toString());
+        ActivityUtils.addActivity_(Login.this);
         earth = (ImageView) findViewById(R.id.earth);
         textView = (TextView) findViewById(R.id.textView);
         nameText = (EditText) findViewById(R.id.nameText);
@@ -44,24 +57,46 @@ public class Login extends AppCompatActivity implements SensorEventListener {
         sManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);
-        mysqlHelp=new MysqlHelp();
-
+        userDao = new UserDaoImpl();
+        mainHandler=new Handler(getMainLooper());
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = nameText.getText().toString();
                 String pws = pswText.getText().toString();
-                    Intent intent = new Intent(Login.this, Main.class);
-                    startActivity(intent);
-//                if ("".equals(name) || "".equals(pws)) {
-//                    //通过makeText方法创建消息提示框
-//                    Toast.makeText(Login.this, "用户名和密码不能为空", Toast.LENGTH_LONG).show();
-//                } else if (!name.equals("lys2021") || !pws.equals("lys2021")) {
-//                    Toast.makeText(Login.this, "用户名或密码错误", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Intent intent = new Intent(Login.this, Main.class);
-//                    startActivity(intent);
-//                }
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pws)) {
+                    //通过makeText方法创建消息提示框
+                    Tips.showShortMsg(Login.this,"用户名和密码不能为空");
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final User user = userDao.selectUser(new User(name, pws));
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (user.getUsername()==null||user.getPassword()==null){
+                                        Tips.showShortMsg(Login.this,"用户名或密码错误");
+                                    }else {
+                                        nameText.setText("");
+                                        pswText.setText("");
+                                        Intent intent = new Intent(Login.this, Main.class);
+                                        intent.putExtra("user",user);
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            }
+        });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
             }
         });
     }
@@ -79,6 +114,7 @@ public class Login extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        sManager.unregisterListener(this);
     }
 
     @Override

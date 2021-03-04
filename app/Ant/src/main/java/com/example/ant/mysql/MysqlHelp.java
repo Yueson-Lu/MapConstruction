@@ -2,38 +2,72 @@ package com.example.ant.mysql;
 
 import android.util.Log;
 
-import com.example.ant.Login;
+import com.example.ant.dto.User;
+import com.mysql.jdbc.PreparedStatement;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class MysqlHelp {
-    public  boolean insertSql()
-    {
-        String url_1=" jdbc:mysql://127.0.0.1:3306/mymap?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true";
-        String UserName_1="root";
-        String pass_1="EAson441224";
-        boolean result=false;
+    static String url = "jdbc:mysql://39.106.119.22:3306/map";
+    static String root = "map";
+    static String password = "123456";
+    static String driver = "com.mysql.jdbc.Driver";
+    static Connection cn = null;
+    static PreparedStatement ps = null;
+    static ResultSet rs = null;
+
+
+    private MysqlHelp() {
+
+    }
+
+
+    public static Connection getConnection() {
+        Connection conn = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            java.sql.Connection cn= DriverManager.getConnection(url_1,UserName_1,pass_1);
-            Log.i("cn",cn.toString());
-//            String sql = " " ;
-//            Statement st=cn.createStatement();
-//            result=st.execute(sql);
-            result=true;
-            cn.close();
-//            st.close();
+            Class.forName(driver);//获取MYSQL驱动
+            conn = DriverManager.getConnection(url, root, password);//获取连接
+            System.out.println("连接数据库成功");
         } catch (ClassNotFoundException e) {
-            result=false;
-//              e.printStackTrace();
+            e.printStackTrace();
+            System.out.println("连接数据库失败");
         } catch (SQLException e) {
-            //e.printStackTrace();
-            result=false;
+            e.printStackTrace();
         }
-        Log.i("result",result+"");
-        return  result;
+        return conn;
+    }
+
+
+    /**
+     * 关闭数据库
+     */
+
+    public static void closeAll() {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (cn != null) {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
+

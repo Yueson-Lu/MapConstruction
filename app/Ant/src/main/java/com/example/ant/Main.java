@@ -1,8 +1,14 @@
 package com.example.ant;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import com.example.ant.Utils.Tips;
+import com.example.ant.Utils.activityUtils.ActivityUtils;
+import com.example.ant.dto.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +17,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
@@ -20,6 +27,7 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityUtils.addActivity_(Main.this);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -29,6 +37,10 @@ public class Main extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+//        Intent intent = getIntent();
+//        User user = (User) intent.getSerializableExtra("user");
+//        Log.i("user",user.toString()+"=========================");
     }
 
     public interface MyTouchListener
@@ -69,5 +81,15 @@ public class Main extends AppCompatActivity {
             listener.onTouchEvent(ev);
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Tips.exitDlg(Main.this,"确定要退出吗？");
+            return true;
+        }
+        return true;
     }
 }
