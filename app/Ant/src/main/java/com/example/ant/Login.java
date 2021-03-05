@@ -75,9 +75,14 @@ public class Login extends AppCompatActivity implements SensorEventListener {
                             mainHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (user.getUsername()==null||user.getPassword()==null){
+//                                    Intent intent = new Intent(Login.this, Main.class);
+//                                    startActivity(intent);
+//                                    登陆验证，注释就可关闭验证
+                                    if (user.getUsername()==null&&user.getPassword()==null){
                                         Tips.showShortMsg(Login.this,"用户名或密码错误");
-                                    }else {
+                                    }else if (user.getUsername().equals("网络异常")){
+                                        Tips.showShortMsg(Login.this,"网络异常");
+                                    } else {
                                         nameText.setText("");
                                         pswText.setText("");
                                         Intent intent = new Intent(Login.this, Main.class);

@@ -91,7 +91,7 @@ public class StepCountJudgment {
                     step=step+1;  //步数 + 1
 //                    Log.i("step+++++++++", String.valueOf(step));
 //                    if (processState == true) {
-                        Log.d("step",String.valueOf(step));
+//                        Log.d("step",String.valueOf(step));
                         motiveState = true;
                         return step;   //读数更新
 //                    }

@@ -105,11 +105,12 @@ public class homeFragment extends Fragment implements SensorEventListener {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                Log.i("id",group.getCheckedRadioButtonId()+"");
+                Log.i("id",group.getCheckedRadioButtonId()+"");
                 switch (group.getCheckedRadioButtonId()) {
                     case 1:
                         statu = 0;
                         Toast.makeText(getActivity(), "切换至手持模式", Toast.LENGTH_SHORT).show();
+                        Log.i("Toast","+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                         break;
                     case 2:
                         statu = 1;

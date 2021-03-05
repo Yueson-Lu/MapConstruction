@@ -38,9 +38,9 @@ public class Main extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-//        Intent intent = getIntent();
-//        User user = (User) intent.getSerializableExtra("user");
-//        Log.i("user",user.toString()+"=========================");
+        Intent intent = getIntent();
+        User user = (User) intent.getSerializableExtra("user");
+        Log.i("user",user.toString()+"=========================");
     }
 
     public interface MyTouchListener

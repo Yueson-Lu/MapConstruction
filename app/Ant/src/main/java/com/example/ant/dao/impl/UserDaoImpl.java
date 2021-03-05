@@ -89,6 +89,8 @@ public class UserDaoImpl implements UserDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }else {
+            u.setUsername("网络异常");
         }
         MysqlHelp.closeAll();
         return u;

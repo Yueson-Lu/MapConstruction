@@ -1,11 +1,13 @@
 package com.example.ant.ui.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -28,10 +30,18 @@ import com.example.ant.Main;
 import com.example.ant.R;
 import com.example.ant.Utils.DirectionSet;
 import com.example.ant.Utils.DistanceCaculate;
+import com.example.ant.Utils.NavigationSet;
 import com.example.ant.Utils.PointSet;
 import com.example.ant.Utils.StepCountJudgment;
+import com.example.ant.Utils.Tips;
+import com.example.ant.dto.MyMap;
+import com.example.ant.dto.User;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 public class DashboardFragment extends Fragment implements SensorEventListener, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
     //    xml组件
@@ -41,6 +51,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     private TextView tvDirection;
     private Button btnStart;
     private ImageView compass;
+    private Button navigation;
+    private Button compose;
 
 
     //    缩放标志
@@ -73,7 +85,10 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     private float currentY = 0;
     private float nextX = 0;
     private float nextY = 0;
-    private ArrayList points;
+    private ArrayList<Float> points;
+    private ArrayList<Integer> navigations;
+    private int countPoint = 0;
+    private int countNavigation = 0;
 
     //    制图类
     private MapSetView mapSetView;
@@ -106,12 +121,15 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         tvDirection = getView().findViewById(R.id.tv_direction);
         btnStart = getView().findViewById(R.id.btn_start);
         compass = getView().findViewById(R.id.compass);
+        navigation = getView().findViewById(R.id.navigation);
+        compose = getView().findViewById(R.id.compose);
+
     }
 
     //监听器注册
     public void listener() {
         //        设定开始点
-        pointSet = new PointSet(0, 0, 0, 30);
+        pointSet = new PointSet(0, 0, 0, 10);
         points = new ArrayList<Float>();
         directions = new ArrayList<Float>();
 //        手势
@@ -131,10 +149,36 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
                 tvStep.setText("本次行走距离0米");
                 tvDirection.setText("当前方位");
                 if (processState == true) {
+                    if (null != points) {
+                        Intent intent = getActivity().getIntent();
+                        User user = (User) intent.getSerializableExtra("user");
+                        MyMap myMap = new MyMap();
+                        myMap.setId(new Random().nextInt());
+                        myMap.setMapName("测试");
+                        String stringPoints = null;
+                        String stringNavigations = null;
+                        if (null != points) {
+                            stringPoints = points.toString();
+                        }
+                        if (null!=navigation){
+                            stringNavigations = navigations.toString();
+                        }
+                        if (null!=stringPoints&&null!=stringNavigations){
+                            myMap.setPoints(stringPoints.substring(1, stringPoints.length() - 1));
+                            myMap.setNavigation(stringNavigations.substring(1, stringNavigations.length() - 1));
+                        }
+                        myMap.setAuthorId(user.getId());
+                        myMap.setAuthor(user.getUsername());
+                        myMap.setCanNavigation(true);
+                        Date date = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        myMap.setCreateTime(formatter.format(date));
+//                        Tips.saveDlg(getActivity(),myMap);
+                        Tips.exitDlg(getActivity(),myMap.toString());
+//                        Log.i("map", myMap.toString());
+                    }
                     btnStart.setText("开始构建");
                     processState = false;
-                    points.clear();
-                    directions.clear();
                     direction = 0;
                     step = 0;
                     currentX = 0;
@@ -143,12 +187,48 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
                     RLtag = 0;
                     UDtag = 0;
                     tag = 0;
-                    mapSetView.repaint(points, direction);
-
+                    points.clear();
+                    directions.clear();
+                    navigations.clear();
+                    countPoint = 0;
+                    countNavigation = 0;
+                    mapSetView.repaint(points, navigations);
                 } else {
                     btnStart.setText("停止");
                     processState = true;
                 }
+            }
+        });
+
+        navigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null == navigations) {
+                    navigations = new ArrayList<>();
+                    NavigationSet.setStartNavigation(navigations);
+//                    Tips.showShortMsg(getActivity(),"请先开始地图构建");
+                }
+//                Log.i("points",points.toString());
+                if (null != points && !points.isEmpty()) {
+                    Log.i("size", countPoint + "");
+                    Log.i("navigations", navigations.toString());
+                    if (navigations.contains(countPoint)) {
+                        Tips.showShortMsg(getActivity(), "导航点已经存在");
+                    } else {
+                        countNavigation++;
+                        NavigationSet.setNavigation(countPoint,navigations);
+                        mapSetView.repaint(points, navigations);
+                    }
+                } else {
+                    Tips.showShortMsg(getActivity(), "请先开始地图构建");
+                }
+            }
+        });
+
+        compose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 //        手势
@@ -174,7 +254,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
             step = stepCountJudgment.judgment(statu, value, processState);
             if (null != step && processState) {
 //                Log.i(step +"", step +"");
-                tvStep.setText("本次行走距离" + String.format("%.2f",(DistanceCaculate.diatance(points.size()/2)))+"米");
+                tvStep.setText("本次行走距离" + String.format("%.2f", (DistanceCaculate.diatance(points.size() / 2))) + "米");
 //                tvDirection.setText("方位：" + String.format("%.2f", direction) + "°");
 
             }
@@ -192,8 +272,9 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
                 currentY = nextY;
                 points.add(nextX);
                 points.add(nextY);
+                countPoint++;
                 if (null != points && points.size() >= 2) {
-                    mapSetView.repaint(points, direction);
+                    mapSetView.repaint(points, navigations);
                 }
 //                Log.i("t","+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 //                for (int i = 0; i < points.size() - 2; i=i+2) {
@@ -240,16 +321,16 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     public boolean onDoubleTap(MotionEvent e) {
 //        Canvas canvas=null;
         Log.i("tag", "放大");
-        if (zoom<5) {
-            zoom = zoom+1;
-            mapSetView.setPaint(zoom*10f);
+        if (zoom < 5) {
+            zoom = zoom + 1;
+            mapSetView.setPaint(zoom * 10f);
 //           canvas=mapSetView.getHolder().lockCanvas();
 //           canvas.scale(canvas.getWidth()*zoom,canvas.getHeight()*zoom);
 //            Log.i("canvas.getWidth()*zoom",canvas.getWidth()*zoom+"");
 //           mapSetView.getHolder().unlockCanvasAndPost(canvas);
 //            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
         }
-        mapSetView.repaint(points, direction);
+        mapSetView.repaint(points, navigations);
         mapSetView.invalidate();
         return true;
     }
@@ -285,16 +366,16 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     @Override
     public void onLongPress(MotionEvent e) {
 //        Canvas canvas=null;
-        if (zoom>0) {
-            zoom = zoom-1;
+        if (zoom > 0) {
+            zoom = zoom - 1;
             Log.i("tag", "缩小");
 //            canvas=mapSetView.getHolder().lockCanvas();
 //            canvas.scale(canvas.getWidth()*zoom,canvas.getHeight()*zoom);
 //            mapSetView.getHolder().unlockCanvasAndPost(canvas);
-            mapSetView.setPaint(zoom*10f);
+            mapSetView.setPaint(zoom * 10f);
 //            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
         }
-        mapSetView.repaint(points, direction);
+        mapSetView.repaint(points, navigations);
         mapSetView.invalidate();
     }
 
@@ -335,7 +416,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
             mapSetView.setTranslationY(10 * UDtag * tag);
             Log.i("tag", "下移");
         }
-        mapSetView.repaint(points, direction);
+        mapSetView.repaint(points, navigations);
         mapSetView.invalidate();
         return true;
     }

@@ -10,19 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29baffee-313a-46c6-8908-cd9034cef979" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___D__Android_Studio_MapConstruction_app_libs_mysql_connector_java_8_0_23_jar_unspecified_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_chrisbanes_PhotoView_2_1_3_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__mysql_mysql_connector_java_5_1_47_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/activityUtils/ActivityUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/UserDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/UserDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dto/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_edittext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/register_bg.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/NavigationSet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/MapPointDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dto/MyMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/save_dialog.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -35,18 +29,22 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/Ant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/Ant.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/UserDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/mysql/MysqlHelp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/mysql/MysqlHelp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_home.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,9 +77,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="layoutResourceFile" />
         <option value="resourceFile" />
       </list>
     </option>
@@ -100,7 +98,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="D:/androidStudioSDK" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils" />
-    <property name="project.structure.last.edited" value="Dependencies" />
+    <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -638,5 +636,26 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Default Changelist" />
     <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java</url>
+          <line>120</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

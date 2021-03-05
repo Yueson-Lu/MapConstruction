@@ -97,10 +97,10 @@ public class Register extends AppCompatActivity {
                                 Tips.showShortMsg(Register.this,"注册成功");
                                 Long nowTime = TimeCalculate.getNowTime();
                                 if (nowTime-TimeCalculate.getNowTime()>1000){
-                                    android.os.Process.killProcess(android.os.Process.myPid());
+//                                    android.os.Process.killProcess(android.os.Process.myPid());
                                 }
                             }else {
-                                Tips.showShortMsg(Register.this,"注册失败");
+//                                Tips.showShortMsg(Register.this,"注册失败");
                             }
                         }
                     }).start();
