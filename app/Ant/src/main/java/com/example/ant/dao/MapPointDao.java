@@ -1,5 +1,6 @@
 package com.example.ant.dao;
 
+import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 
 import java.sql.SQLException;
@@ -9,13 +10,13 @@ import java.util.concurrent.ExecutionException;
 
 public interface MapPointDao {
 
-    boolean addMap(int id,ArrayList points, ArrayList navigation);
+    boolean addMap(MyMap myMap);
 
     boolean deleteMap(int id);
 
-    boolean updateMap(int id, ArrayList points, ArrayList navigation);
+    boolean updateMap(MyMap myMap);
 
-    HashMap selectmap(int id);
+    MyMap selectmap(int id);
 
-    HashMap slectAllMap();
+    ArrayList<MyMap> slectAllMap();
 }

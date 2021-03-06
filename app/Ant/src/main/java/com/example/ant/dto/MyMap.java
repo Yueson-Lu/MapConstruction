@@ -3,16 +3,20 @@ package com.example.ant.dto;
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 public class MyMap implements Serializable {
     private int id;
     private String mapName;
-    private String points;
-    private String navigation;
+    private byte[] points;
+    private byte[] navigation;
     private boolean canNavigation;
+    private boolean isPub;
     private int authorId;
     private String author;
-    private String createTime;
+    private Date createTime;
+
 
     public MyMap() {
     }
@@ -33,19 +37,19 @@ public class MyMap implements Serializable {
         this.mapName = mapName;
     }
 
-    public String getPoints() {
+    public byte[] getPoints() {
         return points;
     }
 
-    public void setPoints(String points) {
+    public void setPoints(byte[] points) {
         this.points = points;
     }
 
-    public String getNavigation() {
+    public byte[] getNavigation() {
         return navigation;
     }
 
-    public void setNavigation(String navigation) {
+    public void setNavigation(byte[] navigation) {
         this.navigation = navigation;
     }
 
@@ -65,11 +69,11 @@ public class MyMap implements Serializable {
         this.author = author;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -81,17 +85,26 @@ public class MyMap implements Serializable {
         this.authorId = authorId;
     }
 
+    public boolean isPub() {
+        return isPub;
+    }
+
+    public void setPub(boolean pub) {
+        isPub = pub;
+    }
+
     @Override
     public String toString() {
         return "MyMap{" +
                 "id=" + id +
                 ", mapName='" + mapName + '\'' +
-                ", points='" + points + '\'' +
-                ", navigation='" + navigation + '\'' +
+                ", points=" + Arrays.toString(points) +
+                ", navigation=" + Arrays.toString(navigation) +
                 ", canNavigation=" + canNavigation +
+                ", isPub=" + isPub +
                 ", authorId=" + authorId +
                 ", author='" + author + '\'' +
-                ", createTime='" + createTime + '\'' +
+                ", createTime=" + createTime +
                 '}';
     }
 }

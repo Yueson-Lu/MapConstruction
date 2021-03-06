@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@color/cardview_shadow_end_color"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -15,11 +17,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/common_google_signin_btn_text_dark_default"
             android:gravity="center"
+            android:padding="10dp"
             android:text="保存地图"
             android:textColor="@color/cardview_dark_background"
-            android:textSize="30dp"
-            android:layout_margin="10dp"/>
+            android:textSize="30dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="作者："
+            android:text="作    者："
             android:textColor="@color/cardview_dark_background"
             android:textSize="20dp" />
 
@@ -113,12 +116,31 @@
             android:textSize="20dp" />
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@drawable/rounded_button_3"
+        android:gravity="center">
 
-        android:background="@color/cardview_shadow_start_color"
+        <Switch
+            android:id="@+id/isPub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/rounded_button_4"
+            android:padding="10dp"
+            android:text="是否公开"
+            android:textOff="不公开"
+            android:textOn="公开"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/common_google_signin_btn_text_dark"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -126,6 +148,7 @@
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@drawable/rounded_button_4"
             android:text="取消" />
 
@@ -133,6 +156,7 @@
             android:id="@+id/save"
             android:layout_width="192dp"
             android:layout_height="49dp"
+            android:layout_margin="5dp"
             android:layout_marginLeft="5dp"
             android:width="30dp"
             android:background="@drawable/rounded_button"

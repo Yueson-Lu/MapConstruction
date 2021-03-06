@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
     PreparedStatement ps = null;
     ResultSet rs = null;
     boolean result;
-    public static MysqlHelp mysqlHelp;
+//    public static MysqlHelp mysqlHelp;
 
 
     @Override

@@ -56,7 +56,7 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
 //        线条效果
 //        PathEffect pathEffect = new DashPathEffect(new float[]{20f, 15f, 10f, 5f}, 0);
 //        paint.setPathEffect(pathEffect);
-        pointPaint.setStrokeWidth(5f);
+        pointPaint.setStrokeWidth(8f);
         pointPaint.setStrokeJoin(Paint.Join.ROUND);
         pointPaint.setAntiAlias(true);
         pointPaint.setStyle(Paint.Style.STROKE);
@@ -69,7 +69,7 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
         setZOrderOnTop(true);//使surfaceview放到最顶层
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//使窗口支持透明度
 
-        mapZoom = 5;
+        mapZoom = 1;
     }
 
     //    用户导航行走路段处理
@@ -125,8 +125,8 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
                 navigationPath.reset();
                 startX = canvasWidth / 2;
                 startY = canvasHeight / 2;
-                Log.i("points", points.toString() + "  " + points.size());
-                Log.i("navigation", navigations.toString());
+//                Log.i("points", points.toString() + "  " + points.size());
+//                Log.i("navigation", navigations.toString());
                 for (int i = 1; i < navigations.size(); i++) {
                     if (navigations.get(i) == 0) {
                         break;

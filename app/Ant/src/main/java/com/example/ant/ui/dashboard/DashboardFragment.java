@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import com.example.ant.Login;
 import com.example.ant.Main;
 import com.example.ant.R;
+import com.example.ant.Utils.BlobUtil;
 import com.example.ant.Utils.DirectionSet;
 import com.example.ant.Utils.DistanceCaculate;
 import com.example.ant.Utils.NavigationSet;
@@ -130,7 +131,12 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     public void listener() {
         //        设定开始点
         pointSet = new PointSet(0, 0, 0, 10);
-        points = new ArrayList<Float>();
+
+        points = new ArrayList<>();
+//  导航点
+        navigations = new ArrayList<>();
+        NavigationSet.setStartNavigation(navigations);
+//                    Tips.showShortMsg(getActivity(),"请先开始地图构建");
         directions = new ArrayList<Float>();
 //        手势
         gestureDetector = new GestureDetector(frameLayout.getContext(), this);
@@ -146,36 +152,25 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //地图类
+                MyMap myMap = new MyMap();
                 tvStep.setText("本次行走距离0米");
                 tvDirection.setText("当前方位");
                 if (processState == true) {
-                    if (null != points) {
+                    if (countPoint>=2) {
                         Intent intent = getActivity().getIntent();
                         User user = (User) intent.getSerializableExtra("user");
-                        MyMap myMap = new MyMap();
-                        myMap.setId(new Random().nextInt());
-                        myMap.setMapName("测试");
-                        String stringPoints = null;
-                        String stringNavigations = null;
-                        if (null != points) {
-                            stringPoints = points.toString();
-                        }
-                        if (null!=navigation){
-                            stringNavigations = navigations.toString();
-                        }
-                        if (null!=stringPoints&&null!=stringNavigations){
-                            myMap.setPoints(stringPoints.substring(1, stringPoints.length() - 1));
-                            myMap.setNavigation(stringNavigations.substring(1, stringNavigations.length() - 1));
-                        }
+                        myMap.setId(new Random().nextInt(Integer.MAX_VALUE));
+                        myMap.setMapName("");
+                        myMap.setPoints(BlobUtil.setObject(points));
+                        myMap.setNavigation(BlobUtil.setObject(navigations));
                         myMap.setAuthorId(user.getId());
                         myMap.setAuthor(user.getUsername());
                         myMap.setCanNavigation(true);
-                        Date date = new Date();
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        myMap.setCreateTime(formatter.format(date));
-//                        Tips.saveDlg(getActivity(),myMap);
-                        Tips.exitDlg(getActivity(),myMap.toString());
-//                        Log.i("map", myMap.toString());
+                        myMap.setCreateTime(new Date());
+                        Tips.saveDlg(getActivity(), myMap);
+                    }else {
+                        Tips.showShortMsg(getActivity(),"地图为空，不能保存");
                     }
                     btnStart.setText("开始构建");
                     processState = false;
@@ -203,20 +198,15 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         navigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null == navigations) {
-                    navigations = new ArrayList<>();
-                    NavigationSet.setStartNavigation(navigations);
-//                    Tips.showShortMsg(getActivity(),"请先开始地图构建");
-                }
 //                Log.i("points",points.toString());
                 if (null != points && !points.isEmpty()) {
-                    Log.i("size", countPoint + "");
-                    Log.i("navigations", navigations.toString());
+//                    Log.i("size", countPoint + "");
+//                    Log.i("navigations", navigations.toString());
                     if (navigations.contains(countPoint)) {
                         Tips.showShortMsg(getActivity(), "导航点已经存在");
                     } else {
                         countNavigation++;
-                        NavigationSet.setNavigation(countPoint,navigations);
+                        NavigationSet.setNavigation(countPoint, navigations);
                         mapSetView.repaint(points, navigations);
                     }
                 } else {
@@ -241,7 +231,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         super.onDestroy();
         sManager.unregisterListener(this);
         ((Main) this.getActivity()).unRegisterMyTouchListener(mTouchListener);
-        Log.i("distory", "Dash");
+//        Log.i("distory", "Dash");
     }
 
 
@@ -266,8 +256,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
                 directions.add(direction);
                 float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
 //                格式化 位置参数保留小数点后一位
-                nextX = (float) (Math.round(floats[0] * 10)) / 10;
-                nextY = (float) (Math.round(floats[1] * 10)) / 10;
+                nextX = floats[0];
+                nextY = floats[1];
                 currentX = nextX;
                 currentY = nextY;
                 points.add(nextX);

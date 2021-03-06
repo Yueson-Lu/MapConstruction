@@ -22,11 +22,12 @@ public class StepCountJudgment {
     public StepCountJudgment() {
 
     }
+
     //向量求模
     public static double magnitude(float[] value) {
-        float x=value[0];
-        float y=value[1];
-        float z=value[2];
+        float x = value[0];
+        float y = value[1];
+        float z = value[2];
 //        Log.i("x",String.valueOf(x));
 //        Log.i("y",String.valueOf(y));
 //        Log.i("z",String.valueOf(z));
@@ -41,30 +42,40 @@ public class StepCountJudgment {
     public static Integer judgment(int statu, float[] value, boolean processState) {
 //        Log.i("tag","进入判断");
         double range = 0;   //设定一个精度范围
-        if (!processState){
+        if (!processState) {
             step = 0;
             return 0;
-        }else {
+        } else {
             switch (statu) {
                 case STATU_HANDHELD:
 //                Log.i("STATU_HANDHELD",String.valueOf(STATU_HANDHELD));
-                   range=22;
-                    return handheldJudgment(range,value,processState);
+                    if (Math.abs(value[2]) < 4.9) {
+                        range = 22;
+                        return handheldJudgment(range, value, processState);
+                    }
+                    break;
                 case STATU_FLAT:
-//                Log.i("STATU_FLAT",String.valueOf(STATU_FLAT));
-                    range = 15;   //设定一个精度范围
-                    return flatJudgment(range,value,processState);
+                    if (Math.abs(value[0]) < 5 && Math.abs(value[1]) < 5) {
+                        range = 15;   //设定一个精度范围
+                        return flatJudgment(range, value, processState);
+                    }
+                    break;
                 case STATU_NORMAL:
-                    range=12;
 //                Log.i("STATU_NORMAL",String.valueOf(STATU_NORMAL));
-                    return normalJudgment(range,value,processState);
+                    if (Math.abs(value[2]) < 4.9) {
+                        range = 12;
+                        return normalJudgment(range, value, processState);
+                    }
+                    break;
                 default:
                     return null;
             }
         }
+        return null;
     }
 
-    public static Integer handheldJudgment(double range,float[] value, boolean processState) {
+
+    public static Integer handheldJudgment(double range, float[] value, boolean processState) {
         curValue = magnitude(value);   //计算当前的模
         //向上加速的状态
         if (motiveState == true) {
@@ -88,12 +99,15 @@ public class StepCountJudgment {
                 oriValue = curValue;
 //                限定一步完成的时间必须大于0.2s
                 if (processState == true && disTime > 200) {
-                    step=step+1;  //步数 + 1
+                    step = step + 1;  //步数 + 1
 //                    Log.i("step+++++++++", String.valueOf(step));
 //                    if (processState == true) {
 //                        Log.d("step",String.valueOf(step));
-                        motiveState = true;
-                        return step;   //读数更新
+                    motiveState = true;
+//                    Log.i("value[0]", value[0] + "");
+//                    Log.i("value[1]", value[1] + "");
+//                    Log.i("value[2]", value[2] + "");
+                    return step;   //读数更新
 //                    }
                 }
             }
@@ -101,10 +115,11 @@ public class StepCountJudgment {
         return null;
     }
 
-    public static Integer flatJudgment(double range,float[] value, boolean processState){
-        return handheldJudgment(range,value,processState);
+    public static Integer flatJudgment(double range, float[] value, boolean processState) {
+        return handheldJudgment(range, value, processState);
     }
-    public static Integer normalJudgment(double range,float[] value, boolean processState) {
+
+    public static Integer normalJudgment(double range, float[] value, boolean processState) {
         return handheldJudgment(range, value, processState);
     }
 }
