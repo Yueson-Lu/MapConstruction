@@ -16,7 +16,9 @@ public interface MapPointDao {
 
     boolean updateMap(MyMap myMap);
 
-    MyMap selectmap(int id);
+    MyMap selectMap(int id);
 
-    ArrayList<MyMap> slectAllMap();
+    ArrayList<MyMap> selectAllMap();
+
+    ArrayList<MyMap> selectAllMap(int athorId);
 }

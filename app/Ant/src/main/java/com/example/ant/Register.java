@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.ant.Utils.PatternTest;
 import com.example.ant.Utils.TimeCalculate;
 import com.example.ant.Utils.Tips;
 import com.example.ant.Utils.activityUtils.ActivityUtils;
@@ -53,6 +54,7 @@ public class Register extends AppCompatActivity {
         tvGender = (RadioGroup) findViewById(R.id.tv_gender);
         cancle = (Button) findViewById(R.id.cancel);
         register = (Button) findViewById(R.id.register);
+        tvGender.check(tvGender.getChildAt(2).getId());
     }
 
     private void btnRegister() {
@@ -73,37 +75,47 @@ public class Register extends AppCompatActivity {
                 ) {
                     Tips.showShortMsg(Register.this, "请完善注册信息");
                 } else {
-                    user.setUsername(tvUsername.getText().toString());
-                    user.setPassword(tvPassword.getText().toString());
-                    user.setEmail(tvEmail.getText().toString());
-                    user.setPassword(tvPhone.getText().toString());
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            final User adduser = new User();
-                            mainHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    adduser.setUsername(tvUsername.getText().toString());
-                                    adduser.setPassword(tvPassword.getText().toString());
-                                    adduser.setEmail(tvEmail.getText().toString());
-                                    adduser.setPhone(tvPhone.getText().toString());
-                                    adduser.setGender(gender);
-                                    adduser.setId(null);
-                                }
-                            });
-                            boolean b = userDao.addUser(adduser);
-                            if (b){
-                                Tips.showShortMsg(Register.this,"注册成功");
-                                Long nowTime = TimeCalculate.getNowTime();
-                                if (nowTime-TimeCalculate.getNowTime()>1000){
+                    StringBuilder Msg=new StringBuilder();
+                    Msg.append(PatternTest.PatternUser(String.valueOf(tvUsername.getText())));
+                    Msg.append(PatternTest.PatternPassword(String.valueOf(tvPassword.getText())));
+                    Msg.append(PatternTest.PatternPhone(String.valueOf(tvPhone.getText())));
+                    Msg.append(PatternTest.PatternEmail(String.valueOf(tvEmail.getText())));
+                    String s = Msg.toString();
+                    if (!s.isEmpty()){
+                        Tips.showLongMsg(Register.this,s);
+                    }else {
+                        user.setUsername(tvUsername.getText().toString());
+                        user.setPassword(tvPassword.getText().toString());
+                        user.setEmail(tvEmail.getText().toString());
+                        user.setPassword(tvPhone.getText().toString());
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                final User adduser = new User();
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        adduser.setUsername(tvUsername.getText().toString());
+                                        adduser.setPassword(tvPassword.getText().toString());
+                                        adduser.setEmail(tvEmail.getText().toString());
+                                        adduser.setPhone(tvPhone.getText().toString());
+                                        adduser.setGender(gender);
+                                        adduser.setId(null);
+                                    }
+                                });
+                                boolean b = userDao.addUser(adduser);
+                                if (b){
+                                    Tips.showShortMsg(Register.this,"注册成功");
+                                    Long nowTime = TimeCalculate.getNowTime();
+                                    if (nowTime-TimeCalculate.getNowTime()>1000){
 //                                    android.os.Process.killProcess(android.os.Process.myPid());
-                                }
-                            }else {
+                                    }
+                                }else {
 //                                Tips.showShortMsg(Register.this,"注册失败");
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    }
                 }
             }
         });

@@ -49,10 +49,10 @@ public class StepCountJudgment {
             switch (statu) {
                 case STATU_HANDHELD:
 //                Log.i("STATU_HANDHELD",String.valueOf(STATU_HANDHELD));
-                    if (Math.abs(value[2]) < 4.9) {
-                        range = 22;
-                        return handheldJudgment(range, value, processState);
-                    }
+                if (Math.abs(value[2])<4.9){
+                    range = 22;
+                    return handheldJudgment(range, value, processState);
+                }
                     break;
                 case STATU_FLAT:
                     if (Math.abs(value[0]) < 5 && Math.abs(value[1]) < 5) {

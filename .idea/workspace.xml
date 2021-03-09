@@ -10,27 +10,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29baffee-313a-46c6-8908-cd9034cef979" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/BlobUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_preference_preference_1_1_0_rc01_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Compose.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/PatternTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/ComposeActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MyAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/listview_selector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_compose.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/compose_dialog.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/list_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/values/arrays.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/xml/root_preferences.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/Ant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/Ant.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/androidTest/java/com/example/ant/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/androidTest/java/com/example/ant/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Register.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/StepCountJudgment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/MapPointDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/MapPointDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/UserDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dto/MyMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dto/MyMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/home/homeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/notificationsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/notificationsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_notifications.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/save_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/save_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +65,7 @@
     <option name="autoscrollToSource" value="true" />
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="00549ed3769f" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_26" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -100,6 +123,7 @@
       <recent name="D:\Android Studio\MapConstruction\app\login\src\main\res\mipmap-xhdpi" />
     </key>
     <key name="android.template.packageName">
+      <recent name="com.example.ant.ui.dashboard" />
       <recent name="com.example.ant.Utils" />
       <recent name="com.example.login" />
       <recent name="com.example.stepcount" />
@@ -362,11 +386,11 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExampleInstrumentedT..." type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
-      <module name="map" />
+    <configuration name="ExampleInstrumentedT... (1)" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+      <module name="Ant" />
       <option name="TESTING_TYPE" value="2" />
       <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="com.example.stepcount.ExampleInstrumentedTest" />
+      <option name="CLASS_NAME" value="com.example.ant.ExampleInstrumentedTest" />
       <option name="PACKAGE_NAME" value="" />
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
       <option name="EXTRA_OPTIONS" value="" />
@@ -559,19 +583,19 @@
       <item itemvalue="Android App.Ant" />
       <item itemvalue="Android App.sensormanager" />
       <item itemvalue="Android App.map" />
-      <item itemvalue="Android Instrumented Tests.useAppContext()" />
-      <item itemvalue="Android Instrumented Tests.ExampleInstrumentedT..." />
       <item itemvalue="Android Instrumented Tests.useAppContext() (1)" />
       <item itemvalue="Android Instrumented Tests.text()" />
+      <item itemvalue="Android Instrumented Tests.ExampleInstrumentedT... (1)" />
+      <item itemvalue="Android Instrumented Tests.useAppContext()" />
       <item itemvalue="Android JUnit.ExampleUnitTest.addition_isCorrect" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Android Instrumented Tests.useAppContext()" />
+        <item itemvalue="Android Instrumented Tests.ExampleInstrumentedT... (1)" />
         <item itemvalue="Android Instrumented Tests.useAppContext() (1)" />
         <item itemvalue="Android Instrumented Tests.text()" />
         <item itemvalue="Android JUnit.ExampleUnitTest.addition_isCorrect" />
-        <item itemvalue="Android Instrumented Tests.ExampleInstrumentedT..." />
-        <item itemvalue="Android Instrumented Tests.useAppContext()" />
       </list>
     </recent_temporary>
   </component>

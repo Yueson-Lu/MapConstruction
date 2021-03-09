@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="2"
-                android:text="姓名"
+                android:text="账号"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="20dp" />
 
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:background="@drawable/rounded_edittext"
-                android:hint="username"
+                android:hint="帐号:字母开头,由5-16位字母数字字符组成"
                 android:inputType="textAutoCorrect"
                 android:padding="10dp"
                 android:textSize="15dp" />
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:background="@drawable/rounded_edittext"
-                android:hint="password"
+                android:hint="密码：以字母开头,由6-18位字母数字组成"
                 android:inputType="textPassword"
                 android:textSize="15dp" />
         </TableRow>

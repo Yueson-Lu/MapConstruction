@@ -27,6 +27,10 @@ import com.mysql.jdbc.StringUtils;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+
 import static android.os.Looper.getMainLooper;
 
 public class Tips {
@@ -98,7 +102,7 @@ public class Tips {
         mapId.setText(myMap.getId() + "");
         author.setText(myMap.getAuthor() + "");
         createTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(myMap.getCreateTime()));
-        Log.i("savedlg", "savedlg");
+//        Log.i("savedlg", "savedlg");
 // 创建对话框
         AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(dialog).setCancelable(false);
         AlertDialog alertDialog = builder.create();
@@ -140,16 +144,121 @@ public class Tips {
                             mainHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                   if (b){
-                                       alertDialog.dismiss();
-                                       Tips.showLongMsg(context,"保存成功");
-                                   }else{
-                                       Tips.showLongMsg(context,"保存失败");
-                                   }
+                                    if (b) {
+                                        alertDialog.dismiss();
+                                        Tips.showLongMsg(context, "保存成功");
+                                    } else {
+                                        Tips.showLongMsg(context, "保存失败");
+                                    }
                                 }
                             });
                         }
                     }).start();
+                }
+            }
+        });
+    }
+
+    public static void composeDlg(Context context, ArrayList<MyMap> myMaps, User user, String msg) {
+        EditText mapName;
+        TextView mapId;
+        TextView author;
+        TextView createTime;
+        Button cancel;
+        Button save;
+        Switch isPub;
+        TextView Msg;
+        EditText dir;
+        EditText dis;
+
+
+// 获取布局
+        View dialog = View.inflate(context, R.layout.compose_dialog, null);
+        mapName = dialog.findViewById(R.id.mapName);
+        mapId = dialog.findViewById(R.id.mapId);
+        author = dialog.findViewById(R.id.author);
+        createTime = dialog.findViewById(R.id.createTime);
+        cancel = dialog.findViewById(R.id.cancel);
+        save = dialog.findViewById(R.id.save);
+        isPub = dialog.findViewById(R.id.isPub);
+        Msg = dialog.findViewById(R.id.Msg);
+        dir = dialog.findViewById(R.id.dir);
+        dis = dialog.findViewById(R.id.dis);
+        Msg.setText(msg);
+
+        MyMap myMap1 = myMaps.get(0);
+        MyMap myMap2 = myMaps.get(1);
+        MyMap myMapNew = new MyMap();
+
+
+        myMapNew.setId(new Random().nextInt(Integer.MAX_VALUE));
+        myMapNew.setAuthorId(user.getId());
+        myMapNew.setAuthor(user.getUsername() + "(" + myMap1.getAuthor() + "/" + myMap2.getAuthor() + ")");
+        myMapNew.setCreateTime(new Date());
+        mapId.setText(myMapNew.getId() + "");
+        author.setText(myMapNew.getAuthor() + "");
+        createTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(myMapNew.getCreateTime()));
+//        Log.i("savedlg", "savedlg");
+// 创建对话框
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(dialog).setCancelable(false);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        isPub.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    myMapNew.setPub(true);
+                    isPub.setTextOn("公开");
+                } else {
+                    myMapNew.setPub(false);
+                    isPub.setTextOn("不公开");
+                }
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+//                Log.i("cancel", "cancel");
+                alertDialog.dismiss();
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mapPointDao = new MapPointDaoImpl();
+                mainHandler = new Handler(getMainLooper());
+                if (mapName.getText().toString().isEmpty()) {
+                    Tips.showShortMsg(context, "地图名不能为空");
+                } else {
+                    myMapNew.setMapName(mapName.getText().toString());
+                    if (dir.getText().toString().isEmpty()||dis.getText().toString().isEmpty()){
+                        Tips.showLongMsg(context,"方位和距离不能为空");
+                    }else if (Float.valueOf(dir.getText().toString())>360||Float.valueOf(dir.getText().toString())<=0){
+                        Tips.showLongMsg(context,"方位在0-360之间");
+                    }else if (Float.valueOf(dis.getText().toString())>100||Float.valueOf(dis.getText().toString())<=0){
+                        Tips.showLongMsg(context,"距离再1-100之间");
+                    }else {
+                        Compose.composeMap(myMaps, myMapNew, Float.valueOf(dir.getText().toString()), Float.valueOf(dis.getText().toString()));
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+//                                boolean b = mapPointDao.addMap(myMapNew);
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+//                                    if (b) {
+//                                        alertDialog.dismiss();
+//                                        Tips.showLongMsg(context, "保存成功");
+//                                    } else {
+//                                        Tips.showLongMsg(context, "保存失败");
+//                                    }
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
                 }
             }
         });

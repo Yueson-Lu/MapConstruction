@@ -39,7 +39,7 @@
                 android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="用户名"
+                android:hint="账号"
                 android:inputType="textAutoCorrect" />
 
             <EditText

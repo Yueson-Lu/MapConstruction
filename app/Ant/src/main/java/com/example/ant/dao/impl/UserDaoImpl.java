@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
         if (null != cn) {
             try {
                 ps = (PreparedStatement) cn.prepareStatement(sql);
-                ps.setString(1,null);
+                ps.setString(1, null);
                 ps.setString(2, user.getUsername());
                 ps.setString(3, user.getPassword());
                 ps.setString(4, user.getGender());
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
     public User selectUser(User user) {
         User u = new User();
         //MySQL 语句
-        String sql = "select * from user where username=?&&password=?";
+        String sql = "select * from user where username=? and password=?";
         //获取链接数据库对象
         cn = MysqlHelp.getConnection();
 //        预编译
@@ -89,7 +89,7 @@ public class UserDaoImpl implements UserDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             u.setUsername("网络异常");
         }
         MysqlHelp.closeAll();

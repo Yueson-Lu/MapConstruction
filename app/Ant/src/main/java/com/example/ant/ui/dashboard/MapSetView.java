@@ -40,7 +40,7 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
 
 
     //    绘制自适应缩放标志
-    private float mapZoom = 1;
+    private float mapZoom ;
     //图标控制大小
     private Rect mSrcRect, mDestRect;
 
@@ -48,6 +48,7 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
         //....
         super(context);
         surfaceHolder = this.getHolder();//获取holder
+//        Log.i(surfaceHolder.toString(),surfaceHolder.toString()+"p======================================");
         surfaceHolder.addCallback(this);
         pointPaint = new Paint();
         pointPath = new Path();
@@ -69,7 +70,7 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
         setZOrderOnTop(true);//使surfaceview放到最顶层
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//使窗口支持透明度
 
-        mapZoom = 1;
+        mapZoom = 5;
     }
 
     //    用户导航行走路段处理
@@ -84,7 +85,6 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
     protected void paint(Canvas canvas, ArrayList<Float> points, ArrayList<Integer> navigations) {
         //这里的代码跟继承View时OnDraw中一样
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-
 //        path.rewind();
         if (!points.isEmpty() && null != points) {
 //            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
@@ -115,6 +115,7 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
 //            Log.i("XY", points.get(i) + "    " + points.get(i + 1) + "");
                 if (pointX > 0.9 * canvasWidth || pointY > 0.9 * canvasHeight || pointX < 0.1 * canvasWidth || pointY < 0.1 * canvasHeight) {
                     mapZoom = mapZoom * 0.6f;
+                    canvas.scale(mapZoom,mapZoom,canvasWidth/2,canvasHeight/2);
                 }
 //                平移
 //                canvas.translate(30,0);
@@ -151,8 +152,12 @@ public class MapSetView extends SurfaceView implements SurfaceHolder.Callback {
         Canvas canvas = null;
         try {
             canvas = surfaceHolder.lockCanvas();
-            paint(canvas, points, navigations);
-            invalidate();
+            if (null != canvas) {
+                paint(canvas, points, navigations);
+                invalidate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (canvas != null) {
                 surfaceHolder.unlockCanvasAndPost(canvas);

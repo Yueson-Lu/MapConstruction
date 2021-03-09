@@ -87,7 +87,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
     public void listener() {
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);
+        sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,20 +105,20 @@ public class homeFragment extends Fragment implements SensorEventListener {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.i("id",group.getCheckedRadioButtonId()+"");
-                switch (group.getCheckedRadioButtonId()) {
+                Log.i("getCheckedRadioButtonId()",group.getCheckedRadioButtonId()+"++++++++++++++");
+                Log.i("checkedId",checkedId+"____________");
+                switch ((int)group.getCheckedRadioButtonId()%3) {
                     case 1:
                         statu = 0;
                         Toast.makeText(getActivity(), "切换至手持模式", Toast.LENGTH_SHORT).show();
-                        Log.i("Toast","+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                         break;
                     case 2:
                         statu = 1;
                         Toast.makeText(getActivity(), "切换至平握模式", Toast.LENGTH_SHORT).show();
                         break;
-                    case 3:
+                    case 0:
                         statu = 2;
-                        Toast.makeText(getActivity(), "切换至正常模式", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "切换至口袋模式", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         statu = 1;
@@ -130,7 +130,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
 
     int ratate=0;
     private void earthRotate(){
-            ratate=ratate+2;
+            ratate=ratate+1;
             earth.setRotation(ratate);
             if (ratate==360){
                 ratate=0;

@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -35,16 +36,23 @@ import com.example.ant.Utils.NavigationSet;
 import com.example.ant.Utils.PointSet;
 import com.example.ant.Utils.StepCountJudgment;
 import com.example.ant.Utils.Tips;
+import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import static android.os.Looper.getMainLooper;
+
 public class DashboardFragment extends Fragment implements SensorEventListener, GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
+    //   用户
+    private User user;
+
+
     //    xml组件
     private LinearLayout linearLayout;
     private FrameLayout frameLayout;
@@ -97,6 +105,10 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     //    计步类
     private StepCountJudgment stepCountJudgment;
 
+    //    数据库操作
+    public static Handler mainHandler;
+    public static MapPointDaoImpl mapPointDao;
+
     //    初始化页面
     @Nullable
     @Override
@@ -112,6 +124,10 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         findView();
         listener();
         stepCountJudgment = new StepCountJudgment();
+        if (null == user) {
+            user = new User();
+            user = (User) getActivity().getIntent().getSerializableExtra("user");
+        }
     }
 
     //注册组件
@@ -124,8 +140,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         compass = getView().findViewById(R.id.compass);
         navigation = getView().findViewById(R.id.navigation);
         compose = getView().findViewById(R.id.compose);
-
     }
+
 
     //监听器注册
     public void listener() {
@@ -137,6 +153,9 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         navigations = new ArrayList<>();
         NavigationSet.setStartNavigation(navigations);
 //                    Tips.showShortMsg(getActivity(),"请先开始地图构建");
+
+        mainHandler = new Handler(getMainLooper());
+        mapPointDao = new MapPointDaoImpl();
         directions = new ArrayList<Float>();
 //        手势
         gestureDetector = new GestureDetector(frameLayout.getContext(), this);
@@ -144,7 +163,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         sManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorAccelerometer = sManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorMagnetic = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_UI);
+        sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         sManager.registerListener(this, mSensorMagnetic, SensorManager.SENSOR_DELAY_UI);
         mapSetView = new MapSetView(getActivity());
         frameLayout.addView(mapSetView);
@@ -157,7 +176,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
                 tvStep.setText("本次行走距离0米");
                 tvDirection.setText("当前方位");
                 if (processState == true) {
-                    if (countPoint>=2) {
+                    if (countPoint >= 2) {
                         Intent intent = getActivity().getIntent();
                         User user = (User) intent.getSerializableExtra("user");
                         myMap.setId(new Random().nextInt(Integer.MAX_VALUE));
@@ -169,8 +188,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
                         myMap.setCanNavigation(true);
                         myMap.setCreateTime(new Date());
                         Tips.saveDlg(getActivity(), myMap);
-                    }else {
-                        Tips.showShortMsg(getActivity(),"地图为空，不能保存");
+                    } else {
+                        Tips.showShortMsg(getActivity(), "地图为空，不能保存");
                     }
                     btnStart.setText("开始构建");
                     processState = false;
@@ -218,7 +237,21 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         compose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ArrayList<MyMap> myMaps = mapPointDao.selectAllMap();
+                        mainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), ComposeActivity.class);
+                                intent.putExtra("myMaps", myMaps);
+                                intent.putExtra("user",user);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }).start();
             }
         });
 //        手势
@@ -311,14 +344,15 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
     public boolean onDoubleTap(MotionEvent e) {
 //        Canvas canvas=null;
         Log.i("tag", "放大");
+        Canvas canvas = null;
         if (zoom < 5) {
             zoom = zoom + 1;
-            mapSetView.setPaint(zoom * 10f);
-//           canvas=mapSetView.getHolder().lockCanvas();
-//           canvas.scale(canvas.getWidth()*zoom,canvas.getHeight()*zoom);
-//            Log.i("canvas.getWidth()*zoom",canvas.getWidth()*zoom+"");
-//           mapSetView.getHolder().unlockCanvasAndPost(canvas);
-//            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
+//            mapSetView.setPaint(zoom * 10f);
+            canvas = mapSetView.getHolder().lockCanvas();
+            canvas.scale(canvas.getWidth() * zoom, canvas.getHeight() * zoom, e.getX(), e.getY());
+            Log.i("canvas.getWidth()*zoom", canvas.getWidth() * zoom + "");
+            mapSetView.getHolder().unlockCanvasAndPost(canvas);
+            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
         }
         mapSetView.repaint(points, navigations);
         mapSetView.invalidate();
@@ -355,15 +389,14 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
 
     @Override
     public void onLongPress(MotionEvent e) {
-//        Canvas canvas=null;
+        Canvas canvas = null;
         if (zoom > 0) {
             zoom = zoom - 1;
             Log.i("tag", "缩小");
-//            canvas=mapSetView.getHolder().lockCanvas();
-//            canvas.scale(canvas.getWidth()*zoom,canvas.getHeight()*zoom);
-//            mapSetView.getHolder().unlockCanvasAndPost(canvas);
-            mapSetView.setPaint(zoom * 10f);
-//            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
+            canvas = mapSetView.getHolder().lockCanvas();
+            canvas.scale(canvas.getWidth() * zoom, canvas.getHeight() * zoom, e.getX(), e.getY());
+            mapSetView.getHolder().unlockCanvasAndPost(canvas);
+            mapSetView.getHolder().setFixedSize((int) (mapSetView.getWidth() * zoom), (int) (mapSetView.getHeight() * zoom));
         }
         mapSetView.repaint(points, navigations);
         mapSetView.invalidate();
@@ -388,7 +421,9 @@ public class DashboardFragment extends Fragment implements SensorEventListener, 
         if (velocityX > 1500 && Math.abs(velocityY) < 1500) {
 //            右移
             RLtag++;
-            mapSetView.setTranslationX(10 * RLtag * tag);
+//            mapSetView.setTranslationX(10 * RLtag * tag);
+            mapSetView.scrollBy(100, 100);
+//            mapSetView.repaint(points,navigations);
             Log.i("tag", "右移");
         } else if (velocityX < -1500 && Math.abs(velocityY) < 1500) {
             //            左移
