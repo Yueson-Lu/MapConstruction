@@ -10,70 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29baffee-313a-46c6-8908-cd9034cef979" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetViewTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetViewTest2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/bg1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-anydpi-v26/wings.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/myapplication.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/java/com/example/myapplication/MainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/java/com/example/myapplication/TouchImageView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-mdpi/compass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myapplication/src/test/java/com/example/myapplication/ExampleUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/Ant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/Ant.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Compose.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Compose.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/DistanceCaculate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/DistanceCaculate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/PointSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/PointSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/Utils/Tips.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dto/MyMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dto/MyMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/ComposeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/ComposeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MapSetView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/notificationsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/notificationsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/rounded_button_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_notifications.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myapplication/myapplication.iml" beforeDir="false" afterPath="$PROJECT_DIR$/myapplication/myapplication.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -655,12 +595,12 @@
       <item itemvalue="Android App.Ant" />
       <item itemvalue="Android App.sensormanager" />
       <item itemvalue="Android App.map" />
+      <item itemvalue="Android App.myapplication" />
       <item itemvalue="Android Instrumented Tests.useAppContext() (1)" />
       <item itemvalue="Android Instrumented Tests.text()" />
       <item itemvalue="Android Instrumented Tests.ExampleInstrumentedT... (1)" />
       <item itemvalue="Android Instrumented Tests.useAppContext()" />
       <item itemvalue="Android JUnit.ExampleUnitTest.addition_isCorrect" />
-      <item itemvalue="Android App.myapplication" />
     </list>
     <recent_temporary>
       <list>
