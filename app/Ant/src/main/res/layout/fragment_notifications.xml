@@ -1,16 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.notificationsFragment">
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:background="@mipmap/dashbg"
+    tools:context=".ui.dashboard.DashboardFragment">
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="434dp"
+        android:background="@drawable/rounded_button_3"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/common_google_signin_btn_text_dark_disabled">
+        <ImageView
+            android:id="@+id/compass"
+            android:layout_width="86dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:src="@mipmap/compass" />
     </FrameLayout>
+    <TextView
+        android:id="@+id/tv_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="本次行走距离0米"
+        android:textColor="#DE5347"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"/>
+    <TextView
+        android:id="@+id/tv_direction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:text="方位：0.00°"
+        android:textColor="#DE5347"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/common_google_signin_btn_text_dark_disabled">
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="开始构建"
+            android:textSize="15dp"
+            android:background="@drawable/rounded_button_2"/>
+        <Button
+            android:id="@+id/navigation"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:text="添加导航点"
+            android:textSize="15dp"
+            android:background="@drawable/rounded_button_2"/>
+        <Button
+            android:id="@+id/compose"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:text="合成地图"
+            android:textSize="15dp"
+            android:background="@drawable/rounded_button_2" />
+
+    </LinearLayout>
+
+</LinearLayout>

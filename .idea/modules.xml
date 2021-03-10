@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/Ant/Ant.iml" filepath="$PROJECT_DIR$/app/Ant/Ant.iml" group="MapConstruction/app/Ant" />
       <module fileurl="file://$PROJECT_DIR$/MapConstruction.iml" filepath="$PROJECT_DIR$/MapConstruction.iml" group="MapConstruction" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MapConstruction/app" />
+      <module fileurl="file://$PROJECT_DIR$/myapplication/myapplication.iml" filepath="$PROJECT_DIR$/myapplication/myapplication.iml" group="MapConstruction/myapplication" />
     </modules>
   </component>
 </project>

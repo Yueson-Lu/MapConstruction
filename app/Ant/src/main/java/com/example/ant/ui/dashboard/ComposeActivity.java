@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.ant.R;
 import com.example.ant.Utils.Compose;
 import com.example.ant.Utils.Tips;
+import com.example.ant.Utils.activityUtils.ActivityUtils;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 import com.google.android.gms.common.util.JsonUtils;
@@ -47,6 +48,7 @@ public class ComposeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        ActivityUtils.addActivity_(this);
         findByMe();
         myMaps = (ArrayList<MyMap>) this.getIntent().getSerializableExtra("myMaps");
         user = (User) this.getIntent().getSerializableExtra("user");
@@ -70,7 +72,7 @@ public class ComposeActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tips.exitDlg(ComposeActivity.this, "确定退出");
+                Tips.exitComposeDlg(ComposeActivity.this, "确定退出");
             }
         });
 
@@ -88,8 +90,8 @@ public class ComposeActivity extends AppCompatActivity {
                             composerMap.add(myMaps.get(i));
                         }
                     }
-                    String Msg="地图：："+composerMap.get(0).getMapName()+"与"+"地图：："+composerMap.get(1).getMapName()+"起点的相对位置";
-                    Tips.composeDlg(ComposeActivity.this, composerMap,user,Msg);
+                    String Msg = "地图：：" + composerMap.get(0).getMapName() + "与" + "地图：：" + composerMap.get(1).getMapName() + "起点的相对位置";
+                    Tips.composeDlg(ComposeActivity.this, composerMap, user, Msg);
                 }
 
             }

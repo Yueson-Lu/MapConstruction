@@ -74,22 +74,22 @@ public class Main extends AppCompatActivity {
     /**
      * 分发触摸事件给所有注册了MyTouchListener的接口
      */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        // TODO Auto-generated method stub
-        for (MyTouchListener listener : myTouchListeners) {
-            listener.onTouchEvent(ev);
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            Tips.exitDlg(Main.this,"确定要退出吗？");
-            return true;
-        }
-        return true;
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        // TODO Auto-generated method stub
+//        for (MyTouchListener listener : myTouchListeners) {
+//            listener.onTouchEvent(ev);
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
+//
+//
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+//            Tips.exitDlg(Main.this,"确定要退出吗？");
+//            return true;
+//        }
+//        return true;
+//    }
 }

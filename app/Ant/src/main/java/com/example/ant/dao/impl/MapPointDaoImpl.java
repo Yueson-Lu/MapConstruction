@@ -27,7 +27,7 @@ public class MapPointDaoImpl implements MapPointDao {
     @Override
     public boolean addMap(MyMap myMap) {
         //MySQL 语句
-        String sql1 = "insert into map(id,mapName,points,navigation,canNavigation,isPub,authorId,author,createTime) values(?,?,?,?,?,?,?,?,?)";
+        String sql1 = "insert into map(id,mapName,points,navigation,canNavigation,isPub,authorId,author,createTime,disx,disy) values(?,?,?,?,?,?,?,?,?,?,?)";
         //获取链接数据库对象
         cn = MysqlHelp.getConnection();
 //        预编译
@@ -43,6 +43,8 @@ public class MapPointDaoImpl implements MapPointDao {
                 ps.setInt(7, myMap.getAuthorId());
                 ps.setString(8, myMap.getAuthor());
                 ps.setTimestamp(9, new Timestamp(myMap.getCreateTime().getTime()));
+                ps.setFloat(10, myMap.getDisx());
+                ps.setFloat(11, myMap.getDisy());
                 int i = ps.executeUpdate();
                 if (i == 1) {
                     result = true;
@@ -91,6 +93,8 @@ public class MapPointDaoImpl implements MapPointDao {
                     myMap.setAuthor(rs.getString("author"));
                     myMap.setAuthorId(rs.getInt("authorId"));
                     myMap.setCreateTime(rs.getTimestamp("createTime"));
+                    myMap.setDisx(rs.getFloat("disx"));
+                    myMap.setDisy(rs.getFloat("disy"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -119,12 +123,13 @@ public class MapPointDaoImpl implements MapPointDao {
                     myMap.setMapName(rs.getString("mapName"));
                     myMap.setPoints(rs.getBytes("points"));
                     myMap.setNavigation(rs.getBytes("navigation"));
-
                     myMap.setCanNavigation(rs.getInt("canNavigation") == 1 ? true : false);
                     myMap.setPub(rs.getInt("isPub") == 1 ? true : false);
                     myMap.setAuthor(rs.getString("author"));
                     myMap.setAuthorId(rs.getInt("authorId"));
                     myMap.setCreateTime(rs.getTimestamp("createTime"));
+                    myMap.setDisx(rs.getFloat("disx"));
+                    myMap.setDisy(rs.getFloat("disy"));
                     myMaps.add(myMap);
                 }
             } catch (SQLException e) {
@@ -139,7 +144,7 @@ public class MapPointDaoImpl implements MapPointDao {
     @Override
     public ArrayList<MyMap> selectAllMap(int athorId) {
         //MySQL 语句
-        String sql = "select * from map where authorId="+athorId;
+        String sql = "select * from map where authorId=" + athorId;
         //获取链接数据库对象
         cn = MysqlHelp.getConnection();
 //        预编译
@@ -154,12 +159,13 @@ public class MapPointDaoImpl implements MapPointDao {
                     myMap.setMapName(rs.getString("mapName"));
                     myMap.setPoints(rs.getBytes("points"));
                     myMap.setNavigation(rs.getBytes("navigation"));
-
                     myMap.setCanNavigation(rs.getInt("canNavigation") == 1 ? true : false);
                     myMap.setPub(rs.getInt("isPub") == 1 ? true : false);
                     myMap.setAuthor(rs.getString("author"));
                     myMap.setAuthorId(rs.getInt("authorId"));
                     myMap.setCreateTime(rs.getTimestamp("createTime"));
+                    myMap.setDisx(rs.getFloat("disx"));
+                    myMap.setDisy(rs.getFloat("disy"));
                     myMaps.add(myMap);
                 }
             } catch (SQLException e) {

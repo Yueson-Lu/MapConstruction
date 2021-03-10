@@ -1,8 +1,6 @@
 package com.example.ant.dto;
 
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -16,6 +14,8 @@ public class MyMap implements Serializable {
     private int authorId;
     private String author;
     private Date createTime;
+    private float disx;
+    private float disy;
 
 
     public MyMap() {
@@ -93,6 +93,22 @@ public class MyMap implements Serializable {
         isPub = pub;
     }
 
+    public float getDisx() {
+        return disx;
+    }
+
+    public void setDisx(float disx) {
+        this.disx = disx;
+    }
+
+    public float getDisy() {
+        return disy;
+    }
+
+    public void setDisy(float disy) {
+        this.disy = disy;
+    }
+
     @Override
     public String toString() {
         return "MyMap{" +
@@ -105,6 +121,8 @@ public class MyMap implements Serializable {
                 ", authorId=" + authorId +
                 ", author='" + author + '\'' +
                 ", createTime=" + createTime +
+                ", dirx=" + disx +
+                ", diry=" + disy +
                 '}';
     }
 }

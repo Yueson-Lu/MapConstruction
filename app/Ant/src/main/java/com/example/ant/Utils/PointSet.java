@@ -1,5 +1,7 @@
 package com.example.ant.Utils;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class PointSet {
@@ -45,5 +47,18 @@ public class PointSet {
 //        Log.i("x:",nextX+"");
 //        Log.i("y:",nextY+"");
         return XY;
+    }
+
+    public static float[] caclulateDis(float Threshold, float dis, float dir) {
+        double radian = 0;
+        radian = (Math.PI * dir) / 180;
+        float disX = (float) (Math.sin(radian) * Threshold * (dis / 0.32));
+        float disY = (float) (Math.cos(radian) * Threshold * (dis / 0.32));
+        float[] disXY = new float[2];
+//        Log.i("disX",disX+"");
+//        Log.i("disY",disY+"");
+        disXY[0] = disX;
+        disXY[1] = disY;
+        return disXY;
     }
 }

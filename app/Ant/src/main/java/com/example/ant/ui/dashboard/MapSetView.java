@@ -19,6 +19,7 @@ import android.view.SurfaceView;
 import androidx.annotation.NonNull;
 
 import com.example.ant.R;
+import com.example.ant.Utils.activityUtils.ActivityUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

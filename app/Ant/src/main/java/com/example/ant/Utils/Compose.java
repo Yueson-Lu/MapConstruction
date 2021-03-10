@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class Compose {
 
     public static MyMap composeMap(ArrayList<MyMap> myMaps, MyMap myMapNew,Float dir,Float dis) {
-        Log.i("map1",myMaps.get(0).toString());
-        Log.i("map2",myMaps.get(1).toString());
-        Log.i("mapNew",myMapNew.toString());
-        Log.i("dir",dir.toString());
-        Log.i("dis",dis.toString());
-        return null;
+        myMapNew.setPoints(BlobUtil.setObject(myMaps));
+        float[] floats = PointSet.caclulateDis(10, dis, dir);
+        Log.i("floats",floats.toString());
+        myMapNew.setDisx(floats[0]);
+        myMapNew.setDisy(floats[1]);
+        return myMapNew;
     }
 }

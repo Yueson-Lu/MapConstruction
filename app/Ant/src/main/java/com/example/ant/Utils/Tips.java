@@ -1,5 +1,6 @@
 package com.example.ant.Utils;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +24,7 @@ import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dao.impl.UserDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
+import com.example.ant.ui.dashboard.ComposeActivity;
 import com.mysql.jdbc.StringUtils;
 
 import org.json.JSONObject;
@@ -70,6 +72,29 @@ public class Tips {
                         dialog.dismiss();
                         android.os.Process.killProcess(android.os.Process.myPid());
                         ActivityUtils.exitApp();
+                    }
+                });
+        builder.setNegativeButton("取消",
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
+    public static void exitComposeDlg(Activity activity, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity).setTitle("保存");
+        builder.setMessage(msg);
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认",
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        ActivityUtils.removeActivity_(activity);
+                        activity.finish();
                     }
                 });
         builder.setNegativeButton("取消",
@@ -241,19 +266,21 @@ public class Tips {
                         Tips.showLongMsg(context,"距离再1-100之间");
                     }else {
                         Compose.composeMap(myMaps, myMapNew, Float.valueOf(dir.getText().toString()), Float.valueOf(dis.getText().toString()));
+                        Log.i("mapx",myMapNew.getDisx()+"");
+                        Log.i("mapy",myMapNew.getDisy()+"");
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-//                                boolean b = mapPointDao.addMap(myMapNew);
+                                boolean b = mapPointDao.addMap(myMapNew);
                                 mainHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-//                                    if (b) {
-//                                        alertDialog.dismiss();
-//                                        Tips.showLongMsg(context, "保存成功");
-//                                    } else {
-//                                        Tips.showLongMsg(context, "保存失败");
-//                                    }
+                                    if (b) {
+                                        alertDialog.dismiss();
+                                        Tips.showLongMsg(context, "保存成功");
+                                    } else {
+                                        Tips.showLongMsg(context, "保存失败");
+                                    }
                                     }
                                 });
                             }
