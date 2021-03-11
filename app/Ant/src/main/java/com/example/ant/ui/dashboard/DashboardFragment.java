@@ -200,7 +200,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View v) {
 //                Log.i("points",points.toString());
-                if (null != points && !points.isEmpty()) {
+                if (null != points || !points.isEmpty()) {
                     if (navigations.contains(countPoint)) {
                         Tips.showShortMsg(getActivity(), "导航点已经存在");
                     } else if (countPoint-navigations.get(countNavigation)<5){
@@ -221,7 +221,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ArrayList<MyMap> myMaps = mapPointDao.selectAllMap();
+                        ArrayList<MyMap> myMaps = mapPointDao.composeAllMap();
                         mainHandler.post(new Runnable() {
                             @Override
                             public void run() {

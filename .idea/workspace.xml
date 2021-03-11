@@ -10,8 +10,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29baffee-313a-46c6-8908-cd9034cef979" name="Default Changelist" comment="Default Changelist">
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/ListNavigation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/NavigationActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/activity_navigation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/list_compose.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/list_navigation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/nobg1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/nobg2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi/wings.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Ant/Ant.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/Ant.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/MapPointDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/MapPointDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/dao/impl/MapPointDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/ComposeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/ComposeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/DashboardFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/MyAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/dashboard/ListCompose.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/notificationsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/java/com/example/ant/ui/notifications/notificationsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/bg1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/drawable/bg1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_dashboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/Ant/src/main/res/layout/fragment_notifications.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/layout/list_item.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-anydpi-v26/wings.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myapplication/myapplication.iml" beforeDir="false" afterPath="$PROJECT_DIR$/myapplication/myapplication.iml" afterDir="false" />
     </list>
@@ -47,9 +77,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="layoutResourceFile" />
-        <option value="Class" />
         <option value="resourceFile" />
+        <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -66,7 +96,8 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-03-01T03:23:38.423Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="D:/androidStudioSDK" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/myapplication/src/main/res/mipmap-mdpi" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Ant/src/main/res/mipmap-xhdpi" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -79,6 +110,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-xhdpi" />
       <recent name="D:\Android Studio\MapConstruction\myapplication\src\main\res\mipmap-mdpi" />
       <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\java\com\example\ant\Utils" />
       <recent name="D:\Android Studio\MapConstruction\app\login\src\main\res\mipmap-xhdpi" />
@@ -90,11 +122,11 @@
       <recent name="com.example.stepcount" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-anydpi-v26" />
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\layout" />
       <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-xhdpi" />
+      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-anydpi-v26" />
       <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\mipmap-hdpi" />
       <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\drawable-v24" />
-      <recent name="D:\Android Studio\MapConstruction\app\Ant\src\main\res\drawable" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.ant" />

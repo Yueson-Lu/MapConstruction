@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     android:background="@mipmap/dashbg"
     android:orientation="vertical"
+    android:alpha="0.8"
     android:padding="5dp"
     tools:context=".ui.dashboard.DashboardFragment">
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="434dp"
-            android:background="@drawable/rounded_button_3"/>
+            android:background="@drawable/bg1">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/wings"
+                android:alpha="0.3">
+            </androidx.appcompat.widget.AppCompatImageView>
+        </FrameLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/common_google_signin_btn_text_dark_disabled">
-
             <ImageView
                 android:id="@+id/compass"
                 android:layout_width="86dp"

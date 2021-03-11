@@ -108,6 +108,42 @@ public class MapPointDaoImpl implements MapPointDao {
     @Override
     public ArrayList<MyMap> selectAllMap() {
         //MySQL 语句
+        String sql = "select * from map where isPub=1";
+        //获取链接数据库对象
+        cn = MysqlHelp.getConnection();
+//        预编译
+        ArrayList<MyMap> myMaps = new ArrayList<>();
+        if (null != cn) {
+            try {
+                ps = (PreparedStatement) cn.prepareStatement(sql);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    MyMap myMap = new MyMap();
+                    myMap.setId(rs.getInt("id"));
+                    myMap.setMapName(rs.getString("mapName"));
+                    myMap.setPoints(rs.getBytes("points"));
+                    myMap.setNavigation(rs.getBytes("navigation"));
+                    myMap.setCanNavigation(rs.getInt("canNavigation") == 1 ? true : false);
+                    myMap.setPub(rs.getInt("isPub") == 1 ? true : false);
+                    myMap.setAuthor(rs.getString("author"));
+                    myMap.setAuthorId(rs.getInt("authorId"));
+                    myMap.setCreateTime(rs.getTimestamp("createTime"));
+                    myMap.setDisx(rs.getFloat("disx"));
+                    myMap.setDisy(rs.getFloat("disy"));
+                    myMaps.add(myMap);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.i("mymaps", myMaps.size() + "");
+        MysqlHelp.closeAll();
+        return myMaps;
+    }
+
+    @Override
+    public ArrayList<MyMap> composeAllMap() {
+        //MySQL 语句
         String sql = "select * from map where isPub=1 and canNavigation=1";
         //获取链接数据库对象
         cn = MysqlHelp.getConnection();

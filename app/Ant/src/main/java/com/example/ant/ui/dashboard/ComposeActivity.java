@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,8 +53,8 @@ public class ComposeActivity extends AppCompatActivity {
         findByMe();
         myMaps = (ArrayList<MyMap>) this.getIntent().getSerializableExtra("myMaps");
         user = (User) this.getIntent().getSerializableExtra("user");
-        MyAdapter myAdapter = new MyAdapter(this, myMaps);
-        listView.setAdapter(myAdapter);
+        ListCompose listCompose = new ListCompose(this, myMaps);
+        listView.setAdapter(listCompose);
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listener();
 

@@ -7,7 +7,7 @@
     <corners android:radius="10dp"/>
 
     填充颜色
-    <solid android:color="#1CBEBEBE"/>
+    <solid android:color="#00BEBEBE"/>
 
     <!-- 实线边框 -->
     <stroke

@@ -1,5 +1,7 @@
 package com.example.ant.dao;
 
+import android.app.Activity;
+
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 
@@ -19,6 +21,8 @@ public interface MapPointDao {
     MyMap selectMap(int id);
 
     ArrayList<MyMap> selectAllMap();
+
+    ArrayList<MyMap> composeAllMap();
 
     ArrayList<MyMap> selectAllMap(int athorId);
 }
