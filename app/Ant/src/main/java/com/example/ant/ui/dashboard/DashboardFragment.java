@@ -8,7 +8,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +29,11 @@ import com.example.ant.Utils.NavigationSet;
 import com.example.ant.Utils.PointSet;
 import com.example.ant.Utils.StepCountJudgment;
 import com.example.ant.Utils.Tips;
-import com.example.ant.Utils.activityUtils.ActivityUtils;
 import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -85,9 +82,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private int countNavigation = 0;
 
     //    制图类
-    private MapSetView mapSetView;
-    private MapSetViewTest mapSetViewTest;
-    private MapSetViewTest2 mapSetViewTest2;
+    private MapSetViewCompose mapSetViewCompose;
 
     //    计步类
     private StepCountJudgment stepCountJudgment;
@@ -149,8 +144,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         mSensorMagnetic = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         sManager.registerListener(this, mSensorMagnetic, SensorManager.SENSOR_DELAY_UI);
-        mapSetViewTest2 = new MapSetViewTest2(getActivity());
-        frameLayout.addView(mapSetViewTest2);
+        mapSetViewCompose = new MapSetViewCompose(getActivity());
+        frameLayout.addView(mapSetViewCompose);
 //点击监听
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +183,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     navigations.add(0);
                     countPoint = 0;
                     countNavigation = 0;
-                    mapSetViewTest2.repaint(points, navigations);
+                    mapSetViewCompose.repaint(points, navigations);
                 } else {
                     btnStart.setText("停止");
                     processState = true;
@@ -270,7 +265,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                 points.add(nextY);
                 countPoint++;
                 if (null != points && points.size() >= 2) {
-                    mapSetViewTest2.repaint(points, navigations);
+                    mapSetViewCompose.repaint(points, navigations);
                 }
             }
         }

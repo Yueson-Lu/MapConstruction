@@ -184,7 +184,7 @@ public class Tips {
         });
     }
 
-    public static void composeDlg(Context context, ArrayList<MyMap> myMaps, User user, String msg) {
+    public static void composeDlg(Activity activity, ArrayList<MyMap> myMaps, User user, String msg) {
         EditText mapName;
         TextView mapId;
         TextView author;
@@ -198,7 +198,7 @@ public class Tips {
 
 
 // 获取布局
-        View dialog = View.inflate(context, R.layout.compose_dialog, null);
+        View dialog = View.inflate(activity, R.layout.compose_dialog, null);
         mapName = dialog.findViewById(R.id.mapName);
         mapId = dialog.findViewById(R.id.mapId);
         author = dialog.findViewById(R.id.author);
@@ -225,7 +225,7 @@ public class Tips {
         createTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(myMapNew.getCreateTime()));
 //        Log.i("savedlg", "savedlg");
 // 创建对话框
-        AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(dialog).setCancelable(false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity).setView(dialog).setCancelable(false);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
@@ -255,19 +255,19 @@ public class Tips {
                 mapPointDao = new MapPointDaoImpl();
                 mainHandler = new Handler(getMainLooper());
                 if (mapName.getText().toString().isEmpty()) {
-                    Tips.showShortMsg(context, "地图名不能为空");
+                    Tips.showShortMsg(activity, "地图名不能为空");
                 } else {
                     myMapNew.setMapName(mapName.getText().toString());
                     if (dir.getText().toString().isEmpty()||dis.getText().toString().isEmpty()){
-                        Tips.showLongMsg(context,"方位和距离不能为空");
+                        Tips.showLongMsg(activity,"方位和距离不能为空");
                     }else if (Float.valueOf(dir.getText().toString())>360||Float.valueOf(dir.getText().toString())<=0){
-                        Tips.showLongMsg(context,"方位在0-360之间");
+                        Tips.showLongMsg(activity,"方位在0-360之间");
                     }else if (Float.valueOf(dis.getText().toString())>100||Float.valueOf(dis.getText().toString())<=0){
-                        Tips.showLongMsg(context,"距离再1-100之间");
+                        Tips.showLongMsg(activity,"距离再1-100之间");
                     }else {
                         Compose.composeMap(myMaps, myMapNew, Float.valueOf(dir.getText().toString()), Float.valueOf(dis.getText().toString()));
-                        Log.i("mapx",myMapNew.getDisx()+"");
-                        Log.i("mapy",myMapNew.getDisy()+"");
+//                        Log.i("mapx",myMapNew.getDisx()+"");
+//                        Log.i("mapy",myMapNew.getDisy()+"");
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -277,9 +277,10 @@ public class Tips {
                                     public void run() {
                                     if (b) {
                                         alertDialog.dismiss();
-                                        Tips.showLongMsg(context, "保存成功");
+                                        Tips.showLongMsg(activity, "保存成功");
+                                        activity.finish();
                                     } else {
-                                        Tips.showLongMsg(context, "保存失败");
+                                        Tips.showLongMsg(activity, "保存失败");
                                     }
                                     }
                                 });

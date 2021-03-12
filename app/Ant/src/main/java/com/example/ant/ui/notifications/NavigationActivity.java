@@ -1,5 +1,6 @@
 package com.example.ant.ui.notifications;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ant.Main;
 import com.example.ant.R;
 import com.example.ant.Utils.Tips;
 import com.example.ant.Utils.activityUtils.ActivityUtils;
@@ -26,7 +28,8 @@ public class NavigationActivity extends AppCompatActivity {
     ArrayList<MyMap> myMaps;
     User user;
     public MyMap navigationMap;
-
+    private static Integer NAVIGATIONMAP_REQUEST=0;
+    private static Integer NAVIGATIONMAP_RESULT=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class NavigationActivity extends AppCompatActivity {
         myMaps = (ArrayList<MyMap>) this.getIntent().getSerializableExtra("myMaps");
         user = (User) this.getIntent().getSerializableExtra("user");
         ListNavigation listNavigation = new ListNavigation(this, myMaps);
-        navigationMap=null;
+        navigationMap = null;
         listView.setAdapter(listNavigation);
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
         listener();
@@ -72,22 +75,26 @@ public class NavigationActivity extends AppCompatActivity {
                         }
                     }
                     setNavigationMap(navigationMap);
-                    Log.i("Map",getNavigationMap().toString());
-                    if (null!=getNavigationMap()){
-                      finish();
-                    }else {
-                        Tips.showLongMsg(getApplication(),"导航模块初始化失败");
-                    }
+//                    Log.i("Map", getNavigationMap().toString());
+                    if (null != getNavigationMap()) {
+                        Intent intent = new Intent(NavigationActivity.this,Main.class);
+                        //设置启动intent以及对应的请求码
+                       intent.putExtra("navigationMap",getNavigationMap());
+                       setResult(NAVIGATIONMAP_RESULT,intent);
+                       finish();
+                }else{
+                    Tips.showLongMsg(getApplication(), "导航模块初始化失败");
                 }
             }
-        });
-    }
+        }
+    });
+}
 
     public MyMap getNavigationMap() {
         return this.navigationMap;
     }
 
-    public void setNavigationMap(MyMap myMap){
-        this.navigationMap=myMap;
+    public void setNavigationMap(MyMap myMap) {
+        this.navigationMap = myMap;
     }
 }

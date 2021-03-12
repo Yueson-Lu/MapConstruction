@@ -22,14 +22,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.ant.R;
+import com.example.ant.Utils.BlobUtil;
 import com.example.ant.Utils.DirectionSet;
-import com.example.ant.Utils.NavigationSet;
 import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
-import com.example.ant.ui.dashboard.ComposeActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class notificationsFragment extends Fragment implements SensorEventListener {
     //   用户
@@ -54,6 +55,18 @@ public class notificationsFragment extends Fragment implements SensorEventListen
     //    数据库操作
     public static Handler mainHandler;
     public static MapPointDaoImpl mapPointDao;
+
+
+    //    请求码和返回码
+    private static Integer NAVIGATIONMAP_REQUEST = 0;
+    private static Integer NAVIGATIONMAP_RESULT = 1;
+
+    //需要导航的地图
+    private MyMap navigationMap;
+
+
+    //    地图构建类
+    private MapSetViewNavigation mapSetViewNavigation;
 
     //    初始化页面
     @Nullable
@@ -81,7 +94,9 @@ public class notificationsFragment extends Fragment implements SensorEventListen
 //        获取数据库操作对象
         mainHandler = new Handler();
         mapPointDao = new MapPointDaoImpl();
-
+//        地图框
+        mapSetViewNavigation = new MapSetViewNavigation(getActivity());
+        frameLayout.addView(mapSetViewNavigation);
     }
 
     //注册组件
@@ -112,7 +127,19 @@ public class notificationsFragment extends Fragment implements SensorEventListen
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (null != navigationMap) {
+                    Object navigationMapPoint;
+                    Object navigationMapNavigation=null;
+                    navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
+                    if (null != navigationMap.getNavigation()) {
+                        navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
+                    }
+                    if (navigationMapPoint instanceof List) {
+                        mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation,0);
+                    } else {
+                        mapSetViewNavigation.repaint((HashMap) navigationMapPoint, navigationMap.getDisx(), navigationMap.getDisy(),1);
+                    }
+                }
             }
         });
 
@@ -136,7 +163,7 @@ public class notificationsFragment extends Fragment implements SensorEventListen
                                 Intent intent = new Intent(getActivity(), NavigationActivity.class);
                                 intent.putExtra("myMaps", myMaps);
                                 intent.putExtra("user", user);
-                                startActivity(intent);
+                                startActivityForResult(intent, NAVIGATIONMAP_REQUEST);
                             }
                         });
                     }
@@ -171,5 +198,18 @@ public class notificationsFragment extends Fragment implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == NAVIGATIONMAP_RESULT) {
+            if (requestCode == NAVIGATIONMAP_REQUEST) {
+                if (null == navigationMap) {
+                    navigationMap = new MyMap();
+                }
+                navigationMap = (MyMap) data.getSerializableExtra("navigationMap");
+            }
+        }
     }
 }

@@ -73,7 +73,7 @@ public class ComposeActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tips.exitComposeDlg(ComposeActivity.this, "确定退出");
+               ComposeActivity.this.finish();
             }
         });
 
@@ -94,10 +94,8 @@ public class ComposeActivity extends AppCompatActivity {
                     String Msg = "地图：：" + composerMap.get(0).getMapName() + "与" + "地图：：" + composerMap.get(1).getMapName() + "起点的相对位置";
                     Tips.composeDlg(ComposeActivity.this, composerMap, user, Msg);
                 }
-
             }
         });
-
     }
 
 }
