@@ -84,12 +84,12 @@ public class Main extends AppCompatActivity {
 //    }
 //
 //
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-//            Tips.exitDlg(Main.this,"确定要退出吗？");
-//            return true;
-//        }
-//        return true;
-//    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            Tips.exitDlg(Main.this,"确定要退出吗？");
+            return true;
+        }
+        return true;
+    }
 }

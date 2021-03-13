@@ -25,7 +25,7 @@ import com.example.ant.R;
 import com.example.ant.Utils.StepCountJudgment;
 import com.example.ant.Utils.TimeCalculate;
 
-public class homeFragment extends Fragment implements SensorEventListener {
+public class homeFragment extends Fragment implements SensorEventListener{
 
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
@@ -80,7 +80,7 @@ public class homeFragment extends Fragment implements SensorEventListener {
         btn_start = getView().findViewById(R.id.btn_start);
         radioGroup = getView().findViewById(R.id.radioGroup);
         radioGroup.check(radioGroup.getChildAt(1).getId());
-        earth = getView(). findViewById(R.id.earth);
+        earth = getView().findViewById(R.id.earth);
     }
 
     //    监听器
@@ -105,9 +105,9 @@ public class homeFragment extends Fragment implements SensorEventListener {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.i("getCheckedRadioButtonId()",group.getCheckedRadioButtonId()+"++++++++++++++");
-                Log.i("checkedId",checkedId+"____________");
-                switch ((int)group.getCheckedRadioButtonId()%3) {
+                Log.i("getCheckedRadioButtonId()", group.getCheckedRadioButtonId() + "++++++++++++++");
+                Log.i("checkedId", checkedId + "____________");
+                switch ((int) group.getCheckedRadioButtonId() % 3) {
                     case 1:
                         statu = 0;
                         Toast.makeText(getActivity(), "切换至手持模式", Toast.LENGTH_SHORT).show();
@@ -128,17 +128,21 @@ public class homeFragment extends Fragment implements SensorEventListener {
         });
     }
 
-    int ratate=0;
-    private void earthRotate(){
-            ratate=ratate+1;
-            earth.setRotation(ratate);
-            if (ratate==360){
-                ratate=0;
-            }
+    int ratate = 0;
+
+    private void earthRotate() {
+        ratate = ratate + 1;
+        earth.setRotation(ratate);
+        if (ratate == 360) {
+            ratate = 0;
+        }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         sManager.unregisterListener(this);
     }
+
+
 }

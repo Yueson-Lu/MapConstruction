@@ -185,13 +185,13 @@
                 android:id="@+id/dis"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="距离为1-100"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="米"
-                android:inputType="number"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="20dp" />
 
