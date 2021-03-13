@@ -258,16 +258,16 @@ public class Tips {
                     Tips.showShortMsg(activity, "地图名不能为空");
                 } else {
                     myMapNew.setMapName(mapName.getText().toString());
-                    if (dir.getText().toString().isEmpty()||dis.getText().toString().isEmpty()){
-                        Tips.showLongMsg(activity,"方位和距离不能为空");
-                    }else if (Float.valueOf(dir.getText().toString())>360||Float.valueOf(dir.getText().toString())<=0){
-                        Tips.showLongMsg(activity,"方位在0-360之间");
-                    }else if (Float.valueOf(dis.getText().toString())>100||Float.valueOf(dis.getText().toString())<=0){
-                        Tips.showLongMsg(activity,"距离再1-100之间");
-                    }else {
+                    if (dir.getText().toString().isEmpty() || dis.getText().toString().isEmpty()) {
+                        Tips.showLongMsg(activity, "方位和距离不能为空");
+                    } else if (Float.valueOf(dir.getText().toString()) > 360 || Float.valueOf(dir.getText().toString()) <= 0) {
+                        Tips.showLongMsg(activity, "方位在0-360之间");
+                    } else if (Float.valueOf(dis.getText().toString()) > 100 || Float.valueOf(dis.getText().toString()) <= 0) {
+                        Tips.showLongMsg(activity, "距离再1-100之间");
+                    } else if (!PatternTest.PatternNumber(dir.getText().toString()) || !PatternTest.PatternNumber(dis.getText().toString())) {
+                        Tips.showLongMsg(activity, "方位和距离请输入数字");
+                    } else {
                         Compose.composeMap(myMaps, myMapNew, Float.valueOf(dir.getText().toString()), Float.valueOf(dis.getText().toString()));
-//                        Log.i("mapx",myMapNew.getDisx()+"");
-//                        Log.i("mapy",myMapNew.getDisy()+"");
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -275,17 +275,62 @@ public class Tips {
                                 mainHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                    if (b) {
-                                        alertDialog.dismiss();
-                                        Tips.showLongMsg(activity, "保存成功");
-                                        activity.finish();
-                                    } else {
-                                        Tips.showLongMsg(activity, "保存失败");
-                                    }
+                                        if (b) {
+                                            alertDialog.dismiss();
+                                            Tips.showLongMsg(activity, "保存成功");
+                                            activity.finish();
+                                        } else {
+                                            Tips.showLongMsg(activity, "保存失败");
+                                        }
                                     }
                                 });
                             }
                         }).start();
+                    }
+                }
+            }
+        });
+    }
+
+    public static void NavigationSetDlg(Activity activity, Integer countPoint, ArrayList<String> navigations) {
+        EditText navigationName;
+        Button cancel;
+        Button save;
+        View dialog = View.inflate(activity, R.layout.navigationset_dialog, null);
+
+        navigationName = dialog.findViewById(R.id.navigationName);
+        cancel = dialog.findViewById(R.id.cancel);
+        save = dialog.findViewById(R.id.save);
+
+        // 创建对话框
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity).setView(dialog).setCancelable(false);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = navigationName.getText().toString();
+                if (name.isEmpty()) {
+                    Tips.showLongMsg(activity, "导航点名字不能为空");
+                } else if (navigations.contains(name)) {
+                    Tips.showLongMsg(activity, "导航点名字已经存在");
+                } else if (PatternTest.PatternNumber(name)) {
+                    Tips.showShortMsg(activity,"导航点不能为纯数字");
+                } else {
+                    if (NavigationSet.setNavigation(countPoint, name, navigations)) {
+                        alertDialog.dismiss();
+                        Tips.showLongMsg(activity, "保存成功");
+                    } else {
+                        Tips.showLongMsg(activity, "保存失败");
                     }
                 }
             }

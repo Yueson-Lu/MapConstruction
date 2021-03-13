@@ -129,15 +129,13 @@ public class notificationsFragment extends Fragment implements SensorEventListen
             public void onClick(View v) {
                 if (null != navigationMap) {
                     Object navigationMapPoint;
-                    Object navigationMapNavigation=null;
+                    Object navigationMapNavigation ;
                     navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
-                    if (null != navigationMap.getNavigation()) {
-                        navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
-                    }
+                    navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
                     if (navigationMapPoint instanceof List) {
-                        mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation,0);
+                        mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, 0);
                     } else {
-                        mapSetViewNavigation.repaint((HashMap) navigationMapPoint, navigationMap.getDisx(), navigationMap.getDisy(),1);
+                        mapSetViewNavigation.repaint((HashMap) navigationMapPoint, (HashMap) navigationMapNavigation, navigationMap.getDisx(), navigationMap.getDisy(), 1);
                     }
                 }
             }

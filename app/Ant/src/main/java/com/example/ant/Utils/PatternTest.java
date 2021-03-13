@@ -15,7 +15,8 @@ public class PatternTest {
             return "";
         }
     }
-//密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)
+
+    //密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)
     public static String PatternPassword(String password) {
         Pattern pattern = Pattern.compile("^[a-zA-Z]\\w{5,17}$");
         Matcher matcher = pattern.matcher(password);
@@ -44,5 +45,11 @@ public class PatternTest {
         } else {
             return "";
         }
+    }
+
+    public static boolean PatternNumber(String number) {
+        Pattern pattern = Pattern.compile("-?[1-9]\\d*");
+        Matcher matcher = pattern.matcher(number);
+        return matcher.matches();
     }
 }

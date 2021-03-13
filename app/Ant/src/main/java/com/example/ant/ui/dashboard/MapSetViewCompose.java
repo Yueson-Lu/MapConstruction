@@ -17,6 +17,7 @@ import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,8 +38,10 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
     private Paint pointPaint;
     private Path pointPath;
     private Paint navigationPaint;
-
     private Path navigationPath;
+    private Paint pointEnd;
+    private Paint pointStart;
+
     private float startX;
     private float startY;
     private float canvasWidth;
@@ -88,16 +91,40 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
         pointPath = new Path();
         navigationPaint = new Paint();
         navigationPath = new Path();
+        pointEnd = new Paint();
+        pointStart = new Paint();
+
 //        线条效果
         pointPaint.setStrokeWidth(3f * mapZoom);
         pointPaint.setStrokeJoin(Paint.Join.ROUND);
         pointPaint.setAntiAlias(true);
         pointPaint.setStyle(Paint.Style.STROKE);
         pointPaint.setColor(Color.rgb(60, 150, 200));
+        pointPaint.setDither(true);
+        pointPaint.setFilterBitmap(true);
 
-        navigationPaint.setStrokeWidth(3.5f);
-        navigationPaint.setColor(Color.GREEN);
+
+        navigationPaint.setColor(Color.BLACK);
         navigationPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        navigationPaint.setTextSize(20f);
+        navigationPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        navigationPaint.setUnderlineText(true);
+        navigationPaint.setDither(true);
+        navigationPaint.setFilterBitmap(true);
+
+        pointEnd.setStrokeJoin(Paint.Join.ROUND);
+        pointEnd.setAntiAlias(true);
+        pointEnd.setStyle(Paint.Style.FILL);
+        pointEnd.setColor(Color.rgb(200, 0, 0));
+        pointEnd.setDither(true);
+        pointEnd.setFilterBitmap(true);
+
+        pointStart.setStrokeJoin(Paint.Join.ROUND);
+        pointStart.setAntiAlias(true);
+        pointStart.setStyle(Paint.Style.FILL);
+        pointStart.setColor(Color.rgb(0, 200, 0));
+        pointStart.setDither(true);
+        pointStart.setFilterBitmap(true);
 //画布初始化
         setZOrderOnTop(true);//使surfaceview放到最顶层
         getHolder().setFormat(PixelFormat.TRANSLUCENT);//使窗口支持透明度
@@ -116,16 +143,15 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
     }
 
 
-    protected void paint(Canvas canvas, ArrayList<Float> points, ArrayList<Integer> navigations) {
+    protected void paint(Canvas canvas, ArrayList<Float> points, ArrayList navigations) {
+        if (points.size()<=2){
+            mapZoom=5;
+            pointPaint.setStrokeWidth(3f * mapZoom);
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);//绘制透明色
+            invalidate();
+        }
         //这里的代码跟继承View时OnDraw中一样
         if (!points.isEmpty() && null != points) {
-//            canvas.drawPaint(paint);
-//            invalidate();
-//            paint.setStrokeWidth(10f);
-//            paint.setStrokeJoin(Paint.Join.ROUND);
-//            paint.setAntiAlias(true);
-//            paint.setStyle(Paint.Style.STROKE);
-//            paint.setColor(Color.rgb(60, 150, 200));
             pointPath.reset();
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);//绘制透明色
             canvasWidth = canvas.getWidth();
@@ -147,27 +173,28 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
                     mapZoom = 0.9f * mapZoom;
                     pointPaint.setStrokeWidth(3f * mapZoom);
                 }
-            }
-            if (null != navigations && !navigations.isEmpty()) {
-                navigationPath.reset();
-                startX = canvasWidth / 2;
-                startY = canvasHeight / 2;
-                for (int i = 1; i < navigations.size(); i++) {
-                    if (navigations.get(i) == 0) {
-                        break;
-                    } else {
-                        navigationPath.addCircle(startX + points.get(navigations.get(i) * 2 - 2) * mapZoom, startY - points.get(navigations.get(i) * 2 - 1) * mapZoom, 3 * mapZoom, Path.Direction.CW);
-                    }
+                if (i == 0) {
+                    canvas.drawCircle(pointX, pointY, 4f * mapZoom, pointStart);
+                }
+                if (i == points.size() - 2) {
+                    canvas.drawCircle(pointX, pointY, 4f * mapZoom, pointEnd);
                 }
             }
-            canvas.drawPath(navigationPath, navigationPaint);
+            if (null != navigations && !navigations.isEmpty()) {
+                startX = canvasWidth / 2;
+                startY = canvasHeight / 2;
+                Log.i("navigation", navigations.toString());
+                Log.i("points", points.toString());
+                for (int i = 0; i < navigations.size(); i = i + 2) {
+//                    navigationPath.addCircle(startX + (points.get((Integer) navigations.get(i) * 2) * mapZoom),startY - (points.get((Integer) navigations.get(i) * 2 + 1) * mapZoom),4f*mapZoom, Path.Direction.CW);
+                    navigationPaint.setTextSize(20f * mapZoom);
+                    canvas.drawText((String) navigations.get(i + 1), startX + (points.get((Integer) navigations.get(i) * 2) * mapZoom), startY - (points.get((Integer) navigations.get(i) * 2 + 1) * mapZoom), navigationPaint);
+                canvas.drawCircle(startX + (points.get((Integer) navigations.get(i) * 2) * mapZoom), startY - (points.get((Integer) navigations.get(i) * 2 + 1) * mapZoom), 4f*mapZoom,pointStart);
+                }
+            }
             canvas.drawPath(pointPath, pointPaint);
+//            canvas.drawPath(navigationPath,pointStart);
         }
-        //            图标
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getContext().getResources(), R.mipmap.starting);
-        mSrcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        mDestRect = new Rect((int) (startX - 5 * mapZoom), (int) (startY - 8 * mapZoom), (int) (startX + 5 * mapZoom), (int) (startY + 4 * mapZoom));
-        canvas.drawBitmap(bitmap, mSrcRect, mDestRect, null);
         invalidate();
     }
 

@@ -52,8 +52,8 @@ public class PointSet {
     public static float[] caclulateDis(float Threshold, float dis, float dir) {
         double radian = 0;
         radian = (Math.PI * dir) / 180;
-        float disX = (float) (Math.sin(radian) * Threshold * (dis / 0.32));
-        float disY = (float) (Math.cos(radian) * Threshold * (dis / 0.32));
+        float disX = (float) (Math.sin(radian) * Threshold * (dis / 0.35));
+        float disY = (float) (Math.cos(radian) * Threshold * (dis / 0.35));
         float[] disXY = new float[2];
 //        Log.i("disX",disX+"");
 //        Log.i("disY",disY+"");

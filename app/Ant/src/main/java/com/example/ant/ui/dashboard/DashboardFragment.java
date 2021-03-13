@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private float nextX = 0;
     private float nextY = 0;
     private ArrayList<Float> points;
-    private ArrayList<Integer> navigations;
+    private ArrayList navigations;
     private int countPoint = 0;
     private int countNavigation = 0;
 
@@ -133,7 +134,10 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         points = new ArrayList<>();
 //  导航点
         navigations = new ArrayList<>();
-        NavigationSet.setStartNavigation(navigations);
+
+//                制图类
+        mapSetViewCompose = new MapSetViewCompose(getActivity());
+        frameLayout.addView(mapSetViewCompose);
 
         mainHandler = new Handler(getMainLooper());
         mapPointDao = new MapPointDaoImpl();
@@ -144,8 +148,6 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         mSensorMagnetic = sManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         sManager.registerListener(this, mSensorAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         sManager.registerListener(this, mSensorMagnetic, SensorManager.SENSOR_DELAY_UI);
-        mapSetViewCompose = new MapSetViewCompose(getActivity());
-        frameLayout.addView(mapSetViewCompose);
 //点击监听
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,21 +172,22 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     } else {
                         Tips.showShortMsg(getActivity(), "地图为空，不能保存");
                     }
-                    btnStart.setText("开始构建");
                     processState = false;
+                    btnStart.setText("开始构建");
                     direction = 0;
                     step = 0;
                     currentX = 0;
                     currentY = 0;
                     points.clear();
                     navigations.clear();
-                    points.add(0f);
-                    points.add(0f);
-                    navigations.add(0);
                     countPoint = 0;
                     countNavigation = 0;
                     mapSetViewCompose.repaint(points, navigations);
                 } else {
+                    points.add(0f);
+                    points.add(0f);
+                    countPoint++;
+                    NavigationSet.setStartNavigation(navigations);
                     btnStart.setText("停止");
                     processState = true;
                 }
@@ -196,13 +199,14 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             public void onClick(View v) {
 //                Log.i("points",points.toString());
                 if (null != points || !points.isEmpty()) {
-                    if (navigations.contains(countPoint)) {
+                    if (navigations.contains(String.valueOf(countPoint))) {
                         Tips.showShortMsg(getActivity(), "导航点已经存在");
-                    } else if (countPoint-navigations.get(countNavigation)<5){
+                    } else if ((countPoint - (Integer) (navigations.get(countNavigation * 2)) < 5)) {
                         Tips.showShortMsg(getActivity(), "导航点过近");
-                    }else{
+                    } else {
+//                        Log.i("count",navigations.get(countNavigation * 2));
                         countNavigation++;
-                        NavigationSet.setNavigation(countPoint, navigations);
+                        Tips.NavigationSetDlg(getActivity(), countPoint, navigations);
                     }
                 } else {
                     Tips.showShortMsg(getActivity(), "请先开始地图构建");
