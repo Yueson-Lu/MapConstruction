@@ -198,7 +198,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             @Override
             public void onClick(View v) {
 //                Log.i("points",points.toString());
-                if (null != points || !points.isEmpty()) {
+                if (points.size()>=2) {
                     if (navigations.contains(String.valueOf(countPoint))) {
                         Tips.showShortMsg(getActivity(), "导航点已经存在");
                     } else if ((countPoint - (Integer) (navigations.get(countNavigation * 2)) < 5)) {
@@ -248,7 +248,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         statu = 1;
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER&processState) {
             float[] value = event.values;
             step = stepCountJudgment.judgment(statu, value, processState);
             if (null != step && processState) {
@@ -275,12 +275,11 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         }
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             float[] value1 = event.values;
-            float direction = DirectionSet.directionSet(value1);
-            direction = (float) (Math.round(direction * 100)) / 100;
+            int direction = (int) DirectionSet.directionSet(value1);
             compass.setPivotX(compass.getWidth() / 2);
             compass.setPivotY(compass.getHeight() / 2);//支点在图片中心
-            compass.setRotation(direction);
-            tvDirection.setText("方位：" + String.format("%.2f", direction) + "°");
+            compass.setRotation(-direction);
+            tvDirection.setText("方位：" + direction + "°");
         }
     }
 

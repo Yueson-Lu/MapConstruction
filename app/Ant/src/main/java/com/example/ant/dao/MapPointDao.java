@@ -23,6 +23,10 @@ public interface MapPointDao {
     ArrayList<MyMap> selectAllMap();
 
     ArrayList<MyMap> composeAllMap();
+    ArrayList<MyMap> composeAllMyMap(int athorId);
 
     ArrayList<MyMap> selectAllMap(int athorId);
+
+
+
 }

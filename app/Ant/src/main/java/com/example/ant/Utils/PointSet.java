@@ -28,7 +28,6 @@ public class PointSet {
         this.currentY = currentY;
         this.currentAngle = currentAngle;
         this.Threshold = Threshold;
-
     }
 
     public float[] calculatePoint(float currentX, float currentY, float angle) {

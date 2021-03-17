@@ -9,9 +9,12 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import com.example.ant.dao.impl.UserDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 import com.example.ant.ui.dashboard.ComposeActivity;
+import com.example.ant.ui.notifications.NavigationActivity;
 import com.mysql.jdbc.StringUtils;
 
 import org.json.JSONObject;
@@ -324,7 +328,7 @@ public class Tips {
                 } else if (navigations.contains(name)) {
                     Tips.showLongMsg(activity, "导航点名字已经存在");
                 } else if (PatternTest.PatternNumber(name)) {
-                    Tips.showShortMsg(activity,"导航点不能为纯数字");
+                    Tips.showShortMsg(activity, "导航点不能为纯数字");
                 } else {
                     if (NavigationSet.setNavigation(countPoint, name, navigations)) {
                         alertDialog.dismiss();

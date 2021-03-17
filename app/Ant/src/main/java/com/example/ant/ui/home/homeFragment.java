@@ -95,6 +95,7 @@ public class homeFragment extends Fragment implements SensorEventListener{
                 if (processState == true) {
                     btn_start.setText("开始");
                     processState = false;
+                    step=0;
                 } else {
                     btn_start.setText("停止");
                     processState = true;

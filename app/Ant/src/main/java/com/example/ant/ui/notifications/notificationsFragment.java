@@ -1,5 +1,6 @@
 package com.example.ant.ui.notifications;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -8,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +26,21 @@ import androidx.fragment.app.Fragment;
 import com.example.ant.R;
 import com.example.ant.Utils.BlobUtil;
 import com.example.ant.Utils.DirectionSet;
+import com.example.ant.Utils.DistanceCaculate;
+import com.example.ant.Utils.NavigationSet;
+import com.example.ant.Utils.PointSet;
+import com.example.ant.Utils.RouteSet;
+import com.example.ant.Utils.StepCountJudgment;
+import com.example.ant.Utils.Tips;
 import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class notificationsFragment extends Fragment implements SensorEventListener {
     //   用户
@@ -47,6 +57,8 @@ public class notificationsFragment extends Fragment implements SensorEventListen
     private Button btnSelectMap;
     private TextView begining;
     private TextView ending;
+    private boolean processState = false;
+    private Integer step;
     //    传感器
     private SensorManager sManager;
     private Sensor mSensorAccelerometer;
@@ -60,13 +72,27 @@ public class notificationsFragment extends Fragment implements SensorEventListen
     //    请求码和返回码
     private static Integer NAVIGATIONMAP_REQUEST = 0;
     private static Integer NAVIGATIONMAP_RESULT = 1;
+    private static Integer STARTANDEND_REQUEST = 2;
+    private static Integer STARTANDEND_RESULT = 3;
+
+    Integer[] startAndEnd = new Integer[]{null, null};
+
 
     //需要导航的地图
-    private MyMap navigationMap;
+    private MyMap navigationMap = null;
 
 
     //    地图构建类
     private MapSetViewNavigation mapSetViewNavigation;
+    //    地图坐标和导航点实体类
+    private Object navigationMapPoint;
+    private Object navigationMapNavigation;
+
+    //    是否选择了导航点标志
+    private boolean selected = false;
+
+    //    导航坐标类
+    private RouteSet routeSet;
 
     //    初始化页面
     @Nullable
@@ -106,7 +132,7 @@ public class notificationsFragment extends Fragment implements SensorEventListen
         compass = getActivity().findViewById(R.id.compass);
         tvStep = getActivity().findViewById(R.id.tv_step);
         tvDirection = getActivity().findViewById(R.id.tv_direction);
-        btnStart = getActivity().findViewById(R.id.btn_start);
+        btnStart = getActivity().findViewById(R.id.btn_startNavigation);
         btnSelectNavigation = getActivity().findViewById(R.id.btn_selectNavigation);
         btnSelectMap = getActivity().findViewById(R.id.btn_selectMap);
         begining = getActivity().findViewById(R.id.begining);
@@ -127,45 +153,80 @@ public class notificationsFragment extends Fragment implements SensorEventListen
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != navigationMap) {
-                    Object navigationMapPoint;
-                    Object navigationMapNavigation ;
-                    navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
-                    navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
-                    if (navigationMapPoint instanceof List) {
-                        mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, 0);
-                    } else {
-                        mapSetViewNavigation.repaint((HashMap) navigationMapPoint, (HashMap) navigationMapNavigation, navigationMap.getDisx(), navigationMap.getDisy(), 1);
+                btnStart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i("click","点击" );
+                        if (processState) {
+                            btnStart.setText("开始导航");
+                            processState = false;
+                            mapSetViewNavigation.repaint(null,null,null,2);
+                        } else {
+                            if (null != navigationMap && selected) {
+                                navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
+                                navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
+                                if (navigationMapPoint instanceof List) {
+                                    mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, 0);
+                                } else {
+                                    mapSetViewNavigation.repaint((HashMap) navigationMapPoint, (HashMap) navigationMapNavigation, navigationMap.getDisx(), navigationMap.getDisy(), 1);
+                                }
+                                routeSet = new RouteSet((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, startAndEnd);
+                                pointSet = new PointSet(0, 0, 0, 10);
+                                currentX = (float) ((ArrayList) navigationMapPoint).get((int) ((ArrayList) navigationMapNavigation).get(startAndEnd[0].intValue()) * 2);
+                                currentY = (float) ((ArrayList) navigationMapPoint).get((int) ((ArrayList) navigationMapNavigation).get(startAndEnd[0].intValue()) * 2 + 1);
+                                btnStart.setText("停止");
+                                processState = true;
+                            } else {
+                                Tips.showShortMsg(getActivity(), "请选择导航地图");
+                            }
+                        }
                     }
-                }
+                });
             }
         });
-
         btnSelectNavigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (processState) {
+                    Tips.showShortMsg(getActivity(), "请先结束本次导航");
+                } else {
+                    if (null != navigationMapNavigation) {
+                        if (navigationMap.isCanNavigation()) {
+                            Intent intent = new Intent(getActivity(), SelectAvtivity.class);
+                            intent.putExtra("navigationMapNavigation", (ArrayList) navigationMapNavigation);
+                            startActivityForResult(intent, STARTANDEND_REQUEST);
+                        } else {
+                            Tips.showShortMsg(getActivity(), "该地图不能导航");
+                        }
+                    } else {
+                        Tips.showShortMsg(getActivity(), "请选择导航地图");
+                    }
+                }
             }
         });
 
         btnSelectMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ArrayList<MyMap> myMaps = mapPointDao.selectAllMap();
-                        mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(getActivity(), NavigationActivity.class);
-                                intent.putExtra("myMaps", myMaps);
-                                intent.putExtra("user", user);
-                                startActivityForResult(intent, NAVIGATIONMAP_REQUEST);
-                            }
-                        });
-                    }
-                }).start();
+                if (processState) {
+                    Tips.showShortMsg(getActivity(), "请先结束本次导航");
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ArrayList<MyMap> myMaps = mapPointDao.selectAllMap();
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(getActivity(), NavigationActivity.class);
+                                    intent.putExtra("myMaps", myMaps);
+                                    intent.putExtra("user", user);
+                                    startActivityForResult(intent, NAVIGATIONMAP_REQUEST);
+                                }
+                            });
+                        }
+                    }).start();
+                }
             }
         });
     }
@@ -177,11 +238,40 @@ public class notificationsFragment extends Fragment implements SensorEventListen
         sManager.unregisterListener(this);
     }
 
+    //计算坐标类
+    private PointSet pointSet;
+    private float currentX;
+    private float currentY;
+    private float nextX;
+    private float nextY;
 
     //    传感器监听器
     @Override
     public void onSensorChanged(SensorEvent event) {
-//        指南针
+        int statu = 1;
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && processState) {
+            float[] value = event.values;
+            step = StepCountJudgment.judgment(statu, value, processState);
+            if (null != step && processState) {
+//                tvStep.setText("本次行走距离" + String.format("%.2f", (DistanceCaculate.diatance(points.size() / 2))) + "米");
+            }
+        }
+        if (step != null) {
+            if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && processState) {
+                float[] value1 = event.values;
+                float direction = DirectionSet.directionSet(value1);
+                float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
+                nextX = floats[0];
+                nextY = floats[1];
+                currentX = nextX;
+                currentY = nextY;
+//                Log.i("X",currentX+"");
+//                Log.i("Y",currentY+"");
+                routeSet.routePaint(nextX, nextY,mapSetViewNavigation);
+            }
+        }
+
+        //        指南针
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             float[] value1 = event.values;
             float direction = DirectionSet.directionSet(value1);
@@ -207,6 +297,32 @@ public class notificationsFragment extends Fragment implements SensorEventListen
                     navigationMap = new MyMap();
                 }
                 navigationMap = (MyMap) data.getSerializableExtra("navigationMap");
+                if (null != navigationMap) {
+                    navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
+                    navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
+                    if (navigationMapPoint instanceof List) {
+                        mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, 0);
+                    } else {
+                        mapSetViewNavigation.repaint((HashMap) navigationMapPoint, (HashMap) navigationMapNavigation, navigationMap.getDisx(), navigationMap.getDisy(), 1);
+                    }
+                }
+            }
+        }
+        if (resultCode == STARTANDEND_RESULT) {
+            if (requestCode == STARTANDEND_REQUEST) {
+                startAndEnd = (Integer[]) data.getSerializableExtra("startAndEnd");
+                begining.setText(((ArrayList) navigationMapNavigation).get(startAndEnd[0] + 1).toString());
+                ending.setText(((ArrayList) navigationMapNavigation).get(startAndEnd[1] + 1).toString());
+                selected = true;
+                if (null != navigationMap) {
+                    navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
+                    navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
+                    if (navigationMapPoint instanceof List) {
+                        mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, 0);
+                    } else {
+                        mapSetViewNavigation.repaint((HashMap) navigationMapPoint, (HashMap) navigationMapNavigation, navigationMap.getDisx(), navigationMap.getDisy(), 1);
+                    }
+                }
             }
         }
     }

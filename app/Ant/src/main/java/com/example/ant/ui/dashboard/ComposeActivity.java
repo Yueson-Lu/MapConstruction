@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -16,15 +17,18 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.ant.R;
 import com.example.ant.Utils.Compose;
 import com.example.ant.Utils.Tips;
 import com.example.ant.Utils.activityUtils.ActivityUtils;
+import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dto.MyMap;
 import com.example.ant.dto.User;
 import com.google.android.gms.common.util.JsonUtils;
@@ -41,29 +45,35 @@ public class ComposeActivity extends AppCompatActivity {
     private TextView Msg;
     private EditText dir;
     private EditText dis;
-    ArrayList<MyMap> myMaps;
+    ArrayList<MyMap> selectMaps;
     User user;
-
+    private Switch resource;
+    //    数据库操作
+    public static Handler mainHandler;
+    public static MapPointDaoImpl mapPointDao;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
         ActivityUtils.addActivity_(this);
         findByMe();
-        myMaps = (ArrayList<MyMap>) this.getIntent().getSerializableExtra("myMaps");
+        listener();
+        mainHandler=new Handler();
+        mapPointDao=new MapPointDaoImpl();
         user = (User) this.getIntent().getSerializableExtra("user");
-        ListCompose listCompose = new ListCompose(this, myMaps);
+        selectMaps = (ArrayList<MyMap>) this.getIntent().getSerializableExtra("myMaps");
+        ListCompose listCompose = new ListCompose(ComposeActivity.this, selectMaps);
         listView.setAdapter(listCompose);
         listView.setChoiceMode(listView.CHOICE_MODE_MULTIPLE);
-        listener();
-
     }
 
     public void findByMe() {
         listView = findViewById(R.id.list_view);
         cancel = findViewById(R.id.cancel);
         compose = findViewById(R.id.compose);
+        resource = findViewById(R.id.resource);
         Msg = findViewById(R.id.Msg);
         dir = findViewById(R.id.dir);
         dis = findViewById(R.id.dis);
@@ -73,10 +83,54 @@ public class ComposeActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               ComposeActivity.this.finish();
+                ComposeActivity.this.finish();
             }
         });
 
+        resource.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ArrayList<MyMap> myMaps=mapPointDao.composeAllMyMap(user.getId());
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (null != myMaps) {
+                                        selectMaps = myMaps;
+                                        ListCompose listCompose = new ListCompose(ComposeActivity.this, selectMaps);
+                                        listView.setAdapter(listCompose);
+                                    } else {
+                                        Tips.showShortMsg(ComposeActivity.this, "地图库为空");
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                } else {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ArrayList<MyMap> myMaps = mapPointDao.composeAllMap();
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (null != myMaps) {
+                                        selectMaps = myMaps;
+                                        ListCompose listCompose = new ListCompose(ComposeActivity.this, selectMaps);
+                                        listView.setAdapter(listCompose);
+                                    } else {
+                                        Tips.showShortMsg(ComposeActivity.this, "地图库为空");
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            }
+        });
         compose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,12 +140,12 @@ public class ComposeActivity extends AppCompatActivity {
                     SparseBooleanArray checkedItemPositions = listView.getCheckedItemPositions();
                     System.out.println(checkedItemPositions.toString());
                     ArrayList<MyMap> composerMap = new ArrayList<>();
-                    for (int i = 0; i < myMaps.size(); i++) {
+                    for (int i = 0; i < selectMaps.size(); i++) {
                         if (checkedItemPositions.get(i)) {
-                            composerMap.add(myMaps.get(i));
+                            composerMap.add(selectMaps.get(i));
                         }
                     }
-                    String Msg = "地图：：" + composerMap.get(0).getMapName() + "与" + "地图：：" + composerMap.get(1).getMapName() + "起点的相对位置";
+                    String Msg = "地图:" + composerMap.get(0).getMapName() + "与" + "地图:" + composerMap.get(1).getMapName() + "起点的相对位置";
                     Tips.composeDlg(ComposeActivity.this, composerMap, user, Msg);
                 }
             }
