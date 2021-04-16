@@ -204,7 +204,6 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     } else if ((countPoint - (Integer) (navigations.get(countNavigation * 2)) < 5)) {
                         Tips.showShortMsg(getActivity(), "导航点过近");
                     } else {
-//                        Log.i("count",navigations.get(countNavigation * 2));
                         countNavigation++;
                         Tips.NavigationSetDlg(getActivity(), countPoint, navigations);
                     }

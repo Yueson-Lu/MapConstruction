@@ -31,6 +31,7 @@ import com.example.ant.Utils.NavigationSet;
 import com.example.ant.Utils.PointSet;
 import com.example.ant.Utils.RouteSet;
 import com.example.ant.Utils.StepCountJudgment;
+import com.example.ant.Utils.TimeCalculate;
 import com.example.ant.Utils.Tips;
 import com.example.ant.dao.impl.MapPointDaoImpl;
 import com.example.ant.dto.MyMap;
@@ -94,6 +95,7 @@ public class notificationsFragment extends Fragment implements SensorEventListen
     //    导航坐标类
     private RouteSet routeSet;
 
+    float compassDirection;
     //    初始化页面
     @Nullable
     @Override
@@ -156,24 +158,24 @@ public class notificationsFragment extends Fragment implements SensorEventListen
                 btnStart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.i("click","点击" );
+                        Log.i("click", "点击");
                         if (processState) {
                             btnStart.setText("开始导航");
                             processState = false;
-                            mapSetViewNavigation.repaint(null,null,null,2);
+                            mapSetViewNavigation.repaint(null, null, null, null,0,0,2);
                         } else {
                             if (null != navigationMap && selected) {
                                 navigationMapPoint = BlobUtil.getObject(navigationMap.getPoints());
                                 navigationMapNavigation = BlobUtil.getObject(navigationMap.getNavigation());
                                 if (navigationMapPoint instanceof List) {
                                     mapSetViewNavigation.repaint((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, 0);
+                                    routeSet = new RouteSet(getActivity(),(ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, startAndEnd);
+                                    pointSet = new PointSet(0, 0, 0, 10);
+                                    currentX = (float) ((ArrayList) navigationMapPoint).get((int) ((ArrayList) navigationMapNavigation).get(startAndEnd[0].intValue()) * 2);
+                                    currentY = (float) ((ArrayList) navigationMapPoint).get((int) ((ArrayList) navigationMapNavigation).get(startAndEnd[0].intValue()) * 2 + 1);
                                 } else {
                                     mapSetViewNavigation.repaint((HashMap) navigationMapPoint, (HashMap) navigationMapNavigation, navigationMap.getDisx(), navigationMap.getDisy(), 1);
                                 }
-                                routeSet = new RouteSet((ArrayList) navigationMapPoint, (ArrayList) navigationMapNavigation, startAndEnd);
-                                pointSet = new PointSet(0, 0, 0, 10);
-                                currentX = (float) ((ArrayList) navigationMapPoint).get((int) ((ArrayList) navigationMapNavigation).get(startAndEnd[0].intValue()) * 2);
-                                currentY = (float) ((ArrayList) navigationMapPoint).get((int) ((ArrayList) navigationMapNavigation).get(startAndEnd[0].intValue()) * 2 + 1);
                                 btnStart.setText("停止");
                                 processState = true;
                             } else {
@@ -191,11 +193,13 @@ public class notificationsFragment extends Fragment implements SensorEventListen
                     Tips.showShortMsg(getActivity(), "请先结束本次导航");
                 } else {
                     if (null != navigationMapNavigation) {
-                        if (navigationMap.isCanNavigation()) {
+//                        navigationMap.isCanNavigation()
+                        if ( navigationMap.isCanNavigation()) {
                             Intent intent = new Intent(getActivity(), SelectAvtivity.class);
                             intent.putExtra("navigationMapNavigation", (ArrayList) navigationMapNavigation);
                             startActivityForResult(intent, STARTANDEND_REQUEST);
                         } else {
+                            selected=true;
                             Tips.showShortMsg(getActivity(), "该地图不能导航");
                         }
                     } else {
@@ -252,9 +256,6 @@ public class notificationsFragment extends Fragment implements SensorEventListen
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER && processState) {
             float[] value = event.values;
             step = StepCountJudgment.judgment(statu, value, processState);
-            if (null != step && processState) {
-//                tvStep.setText("本次行走距离" + String.format("%.2f", (DistanceCaculate.diatance(points.size() / 2))) + "米");
-            }
         }
         if (step != null) {
             if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && processState) {
@@ -263,23 +264,29 @@ public class notificationsFragment extends Fragment implements SensorEventListen
                 float[] floats = pointSet.calculatePoint(currentX, currentY, direction);
                 nextX = floats[0];
                 nextY = floats[1];
+                if (routeSet.statu()){
+                    routeSet.routePaint(currentX, currentY, mapSetViewNavigation,direction);
+                }else {
+                    btnStart.setText("开始导航");
+                    processState = false;
+                    ArrayList point =new ArrayList();
+                    point.add(0);
+                    mapSetViewNavigation.repaint(point, null, 0);
+                   Tips.finishNavigationDlg(getActivity(),"到达目的地附近，导航结束");
+                }
                 currentX = nextX;
                 currentY = nextY;
-//                Log.i("X",currentX+"");
-//                Log.i("Y",currentY+"");
-                routeSet.routePaint(nextX, nextY,mapSetViewNavigation);
             }
         }
-
         //        指南针
         if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
             float[] value1 = event.values;
-            float direction = DirectionSet.directionSet(value1);
-            direction = (float) (Math.round(direction * 100)) / 100;
+            compassDirection = DirectionSet.directionSet(value1);
+            compassDirection = (float) (Math.round(compassDirection * 100)) / 100;
             compass.setPivotX(compass.getWidth() / 2);
             compass.setPivotY(compass.getHeight() / 2);//支点在图片中心
-            compass.setRotation(direction);
-            tvDirection.setText("方位：" + String.format("%.2f", direction) + "°");
+            compass.setRotation(-compassDirection);
+            tvDirection.setText("方位：" + String.format("%.2f", compassDirection) + "°");
         }
     }
 

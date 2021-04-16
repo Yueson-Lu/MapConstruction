@@ -28,9 +28,6 @@ public class StepCountJudgment {
         float x = value[0];
         float y = value[1];
         float z = value[2];
-//        Log.i("x",String.valueOf(x));
-//        Log.i("y",String.valueOf(y));
-//        Log.i("z",String.valueOf(z));
         double magnitude = 0;
         magnitude = Math.sqrt(x * x + y * y + z * z);
         return magnitude;
@@ -73,8 +70,6 @@ public class StepCountJudgment {
         }
         return null;
     }
-
-
     public static Integer handheldJudgment(double range, float[] value, boolean processState) {
         curValue = magnitude(value);   //计算当前的模
         //向上加速的状态
@@ -84,7 +79,6 @@ public class StepCountJudgment {
                 upTime = TimeCalculate.getNowTime();
                 //检测到一次峰值
                 if (Math.abs(curValue - lstValue) > range) {
-//                    Log.i("curValue - lstValue",(curValue - lstValue)+"");
                     oriValue = curValue;
                     motiveState = false;
                 }
@@ -100,15 +94,8 @@ public class StepCountJudgment {
 //                限定一步完成的时间必须大于0.2s
                 if (processState == true && disTime > 200) {
                     step = step + 1;  //步数 + 1
-//                    Log.i("step+++++++++", String.valueOf(step));
-//                    if (processState == true) {
-//                        Log.d("step",String.valueOf(step));
                     motiveState = true;
-//                    Log.i("value[0]", value[0] + "");
-//                    Log.i("value[1]", value[1] + "");
-//                    Log.i("value[2]", value[2] + "");
                     return step;   //读数更新
-//                    }
                 }
             }
         }

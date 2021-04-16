@@ -14,26 +14,30 @@ public class DistanceCaculate {
     }
 
     static HashMap minPoint = new HashMap();
+    static int point = 0;
+    static float min = 30;
 
     public static HashMap minDis(int startPoint, int endPoint, float ncurrentX, float ncurrentY, ArrayList<Float> navigationMapPoint) {
-        minPoint.put("normal", startPoint);
+        minPoint.put("normal", point);
         minPoint.put("deviate", null);
         minPoint.put("finish", null);
-        float min = 20;
         float temp;
+        min=50;
         for (int i = startPoint; i < endPoint - 2; i++) {
             temp = Math.abs(navigationMapPoint.get(i * 2) - ncurrentX) + Math.abs(navigationMapPoint.get(i * 2 + 1) - ncurrentY);
-            Log.i("temp",temp+"");
-            Log.i("disEnd",Math.abs(Math.abs(navigationMapPoint.get(endPoint * 2) - ncurrentX) + Math.abs(navigationMapPoint.get(endPoint * 2 + 1) - ncurrentY))+" ");
             if (Math.abs(Math.abs(navigationMapPoint.get(endPoint * 2) - ncurrentX) + Math.abs(navigationMapPoint.get(endPoint * 2 + 1) - ncurrentY)) < 20) {
                 minPoint.put("finish", "到达目的地附近，导航结束");
-            } else if (temp < min) {
+            } else if (temp<50&&temp<min) {
                 min = temp;
-                minPoint.put("normal", i);
-            } else if (min > 30) {
+                point = i;
+                minPoint.put("normal", point);
+                minPoint.replace("deviate","偏离路线",null);
+            } else if (min > 40) {
                 minPoint.put("deviate", "偏离路线");
             }
+            Log.i("min", min + "");
         }
+        Log.i("thepoint", minPoint.toString());
         return minPoint;
     }
 }

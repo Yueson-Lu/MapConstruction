@@ -12,19 +12,17 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="434dp"
-            android:background="@drawable/bg1">
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/wings"
-                android:alpha="0.3">
-            </androidx.appcompat.widget.AppCompatImageView>
+            android:layout_height="434dp">
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@mipmap/wings"-->
+<!--                android:alpha="0.3">-->
+<!--            </androidx.appcompat.widget.AppCompatImageView>-->
         </FrameLayout>
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/common_google_signin_btn_text_dark_disabled">
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/compass"
                 android:layout_width="86dp"
@@ -38,7 +36,6 @@
             android:id="@+id/tv_step"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/common_google_signin_btn_text_dark_disabled"
             android:gravity="center"
             android:text="本次行走距离0米"
             android:textColor="#DE5347"
@@ -49,8 +46,6 @@
             android:id="@+id/tv_direction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/common_google_signin_btn_text_dark_disabled"
-
             android:gravity="center"
             android:text="方位：0.00°"
             android:textColor="#DE5347"
@@ -61,7 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@color/common_google_signin_btn_text_dark_disabled"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -97,6 +91,5 @@
                 android:padding="5dp"
                 android:text="合成地图"
                 android:textSize="15dp" />
-
         </LinearLayout>
 </LinearLayout>

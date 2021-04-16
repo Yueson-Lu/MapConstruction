@@ -66,7 +66,7 @@ public class Tips {
     }
 
     public static void exitDlg(Context context, String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("保存");
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(msg);
         builder.setTitle("提示");
         builder.setPositiveButton("确认",
@@ -79,6 +79,20 @@ public class Tips {
                     }
                 });
         builder.setNegativeButton("取消",
+                new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
+    public static void finishNavigationDlg(Context context, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(msg);
+        builder.setTitle("提示");
+        builder.setPositiveButton("确认",
                 new android.content.DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

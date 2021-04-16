@@ -137,12 +137,6 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
         navigations = new ArrayList();
     }
 
-    //    用户导航行走路段处理
-    public void setPaint(float size) {
-        pointPaint.setStrokeWidth(size);
-    }
-
-
     protected void paint(Canvas canvas, ArrayList<Float> points, ArrayList navigations) {
         if (points.size()<=2){
             mapZoom=5;
@@ -159,7 +153,6 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
             startX = canvasWidth / 2;
             startY = canvasHeight / 2;
             pointPath.moveTo(startX, startY);
-//        Log.i("size", points.size() + "");
             canvas.drawColor(getSolidColor());
 
 //            图标
@@ -167,8 +160,6 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
                 pointX = startX + points.get(i) * mapZoom;
                 pointY = startY - points.get(i + 1) * mapZoom;
                 pointPath.lineTo(pointX, pointY);
-//            path.moveTo((Float) points.get(i),(Float) points.get(i+1));
-//            Log.i("XY", points.get(i) + "    " + points.get(i + 1) + "");
                 if (pointX > 0.9 * canvasWidth || pointY > 0.9 * canvasHeight || pointX < 0.1 * canvasWidth || pointY < 0.1 * canvasHeight) {
                     mapZoom = 0.9f * mapZoom;
                     pointPaint.setStrokeWidth(3f * mapZoom);
@@ -183,17 +174,13 @@ public class MapSetViewCompose extends SurfaceView implements SurfaceHolder.Call
             if (null != navigations && !navigations.isEmpty()) {
                 startX = canvasWidth / 2;
                 startY = canvasHeight / 2;
-                Log.i("navigation", navigations.toString());
-                Log.i("points", points.toString());
                 for (int i = 0; i < navigations.size(); i = i + 2) {
-//                    navigationPath.addCircle(startX + (points.get((Integer) navigations.get(i) * 2) * mapZoom),startY - (points.get((Integer) navigations.get(i) * 2 + 1) * mapZoom),4f*mapZoom, Path.Direction.CW);
                     navigationPaint.setTextSize(20f * mapZoom);
                     canvas.drawText((String) navigations.get(i + 1), startX + (points.get((Integer) navigations.get(i) * 2) * mapZoom), startY - (points.get((Integer) navigations.get(i) * 2 + 1) * mapZoom), navigationPaint);
                 canvas.drawCircle(startX + (points.get((Integer) navigations.get(i) * 2) * mapZoom), startY - (points.get((Integer) navigations.get(i) * 2 + 1) * mapZoom), 4f*mapZoom,pointStart);
                 }
             }
             canvas.drawPath(pointPath, pointPaint);
-//            canvas.drawPath(navigationPath,pointStart);
         }
         invalidate();
     }
